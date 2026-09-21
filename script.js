@@ -19,8 +19,8 @@ musicBtn.addEventListener('click', () => {
 });
 
 // 2. Toý gününe çenli sanag (Countdown)
-// Toý gününi bu ýerde üýtgedip bilersiňiz:
-const weddingDate = new Date("October 25, 2026 18:00:00").getTime();
+// Sene 17 Oktýabr 2026
+const weddingDate = new Date("October 17, 2026 18:00:00").getTime();
 
 function updateCountdown() {
   const now = new Date().getTime();
