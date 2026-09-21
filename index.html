@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="tk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sanjar & Leyli - Toý Çakylygy</title>
+  
+  <!-- Tailwind CSS & FontAwesome İkonkalar -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts (Şriftler) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    .font-cursive { font-family: 'Great Vibes', cursive; }
+    .font-sans { font-family: 'Montserrat', sans-serif; }
+    
+    /* Fon üçin ýumşak animasiýa */
+    .bg-wedding {
+      background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+  </style>
+</head>
+<body class="bg-stone-50 font-sans text-stone-800 antialiased">
+
+  <!-- Aýdym-saz Oýnadjy (Floating Music Player) -->
+  <div class="fixed top-4 right-4 z-50">
+    <button id="music-btn" class="bg-white/80 backdrop-blur-md p-3 rounded-full shadow-lg hover:bg-white transition text-rose-600">
+      <i id="music-icon" class="fas fa-music text-xl"></i>
+    </button>
+    <!-- Saz faýlyňyz (Öz aýdymyňyz bilen çalşyp bilersiňiz) -->
+    <audio id="wedding-audio" loop>
+      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <!-- Main Hero Section -->
+  <section class="h-screen bg-wedding flex flex-col items-center justify-center text-center text-white px-4 relative">
+    <div class="animate-fade-in">
+      <p class="text-xl md:text-2xl tracking-widest uppercase mb-2 font-light">Biz öýlenýäris!</p>
+      <h1 class="font-cursive text-6xl md:text-8xl my-4 text-rose-200">Sanjar & Leyli</h1>
+      <p class="text-lg md:text-xl font-light tracking-wide">25.10.2026 | Aşgabat şäheri</p>
+    </div>
+    
+    <div class="absolute bottom-10 animate-bounce">
+      <a href="#details" class="text-white text-2xl"><i class="fas fa-chevron-down"></i></a>
+    </div>
+  </section>
+
+  <!-- Bagtyýar Günümize Çenli Galan Wagt (Countdown Timer) -->
+  <section id="details" class="py-16 px-4 bg-white text-center">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="font-cursive text-4xl md:text-5xl text-rose-600 mb-6">Toý gününe çenli:</h2>
+      
+      <div id="countdown" class="grid grid-cols-4 gap-4 max-w-lg mx-auto text-stone-700">
+        <div class="p-4 bg-rose-50 rounded-xl shadow-sm">
+          <span id="days" class="block text-3xl font-bold text-rose-600">00</span>
+          <span class="text-xs uppercase font-medium">Gün</span>
+        </div>
+        <div class="p-4 bg-rose-50 rounded-xl shadow-sm">
+          <span id="hours" class="block text-3xl font-bold text-rose-600">00</span>
+          <span class="text-xs uppercase font-medium">Sagt</span>
+        </div>
+        <div class="p-4 bg-rose-50 rounded-xl shadow-sm">
+          <span id="minutes" class="block text-3xl font-bold text-rose-600">00</span>
+          <span class="text-xs uppercase font-medium">Minut</span>
+        </div>
+        <div class="p-4 bg-rose-50 rounded-xl shadow-sm">
+          <span id="seconds" class="block text-3xl font-bold text-rose-600">00</span>
+          <span class="text-xs uppercase font-medium">Sekunt</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toý barada giňişleýin maglumat -->
+  <section class="py-16 px-4 bg-stone-100 text-center">
+    <div class="max-w-2xl mx-auto space-y-8">
+      <div>
+        <i class="fas fa-calendar-alt text-3xl text-rose-500 mb-2"></i>
+        <h3 class="text-xl font-semibold">Sene & Wagt</h3>
+        <p class="text-stone-600">Ýekşenbe, 25-nji Oktýabr, 2026-njy ýyl</p>
+        <p class="text-stone-600">Sagat: 18:00</p>
+      </div>
+
+      <div>
+        <i class="fas fa-map-marker-alt text-3xl text-rose-500 mb-2"></i>
+        <h3 class="text-xl font-semibold">Mekan</h3>
+        <p class="text-stone-600">"Gulzaman" Toý Mekany</p>
+        <p class="text-stone-600">Aşgabat şäheri</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mihmanlaryň Gatnaşmagyny Tassyklamak (RSVP Form) -->
+  <section class="py-16 px-4 bg-white text-center">
+    <div class="max-w-md mx-auto">
+      <h2 class="font-cursive text-4xl text-rose-600 mb-4">Gatnaşjakdygyňyzy tassyklaň</h2>
+      <p class="text-sm text-stone-500 mb-6">Haýyş edýäris, toýa gatnaşyp biljekdigiňiz barada öňünden habar beriň!</p>
+
+      <form id="rsvp-form" class="space-y-4 text-left">
+        <div>
+          <label class="block text-xs font-semibold uppercase mb-1">Adyňyz we Familiýaňyz</label>
+          <input type="text" id="guest-name" required placeholder="Mes: Kerim Kerimow" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-400">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase mb-1">Gatnaşjakdygyňyz</label>
+          <select id="guest-status" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-400">
+            <option value="Hawa, höwes bilen bararyn!">Hawa, höwes bilen bararyn!</option>
+            <option value="Bagyşlaň, baryp bilmerem">Bagyşlaň, baryp bilmerem</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase mb-1">Neçe adam bolup barýarsyňyz?</label>
+          <input type="number" id="guest-count" value="1" min="1" max="10" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-400">
+        </div>
+
+        <button type="submit" class="w-full bg-rose-500 hover:bg-rose-600 text-white font-semibold py-3 rounded-lg shadow transition">
+          Ugratmak
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-6 text-center text-xs text-stone-400 border-t">
+    <p>Sanjar & Leyli © 2026 | Toý Çakylygy</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
