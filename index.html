@@ -26,7 +26,7 @@
       background-attachment: fixed;
     }
 
-    /* Gülli we ykjam (kiçi) ramka dizaýny */
+    /* Gülli we ykjam ramka dizaýny */
     .flower-frame {
       position: relative;
       background: #ffffff;
@@ -42,7 +42,6 @@
       box-shadow: 0 10px 25px rgba(244, 63, 94, 0.2);
     }
 
-    /* Suradyň kiçeldilen ölçegi we düzülişi */
     .flower-frame img {
       border-radius: 0.9rem;
       object-fit: cover;
@@ -51,7 +50,6 @@
       background-color: #fce7f3;
     }
 
-    /* Gülli künçek bezegleri */
     .flower-corner {
       position: absolute;
       font-size: 0.85rem;
@@ -95,7 +93,7 @@
     </div>
   </section>
 
-  <!-- Countdown -->
+  <!-- Countdown (Toý gününe çenli wagt) -->
   <section id="details" class="py-16 px-4 bg-white text-center">
     <div class="max-w-3xl mx-auto">
       <h2 class="font-cursive text-4xl md:text-5xl text-rose-600 mb-6">Toý gününe çenli:</h2>
@@ -129,46 +127,40 @@
 
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
         
-        <!-- 1. Surat -->
         <div class="flower-frame">
           <div class="flower-corner corner-tl"><i class="fas fa-leaf"></i></div>
           <div class="flower-corner corner-br"><i class="fas fa-heart"></i></div>
-          <img src="IMG_1965.jpeg" alt="Kerim & Jahan" loading="lazy">
+          <img src="./IMG_1965.jpeg" alt="Kerim & Jahan">
         </div>
 
-        <!-- 2. Surat -->
         <div class="flower-frame">
           <div class="flower-corner corner-tl"><i class="fas fa-leaf"></i></div>
           <div class="flower-corner corner-br"><i class="fas fa-heart"></i></div>
-          <img src="IMG_1968.jpeg" alt="Kerim & Jahan" loading="lazy">
+          <img src="./IMG_1968.jpeg" alt="Kerim & Jahan">
         </div>
 
-        <!-- 3. Surat -->
         <div class="flower-frame">
           <div class="flower-corner corner-tl"><i class="fas fa-leaf"></i></div>
           <div class="flower-corner corner-br"><i class="fas fa-heart"></i></div>
-          <img src="IMG_1969.jpeg" alt="Kerim & Jahan" loading="lazy">
+          <img src="./IMG_1969.jpeg" alt="Kerim & Jahan">
         </div>
 
-        <!-- 4. Surat -->
         <div class="flower-frame">
           <div class="flower-corner corner-tl"><i class="fas fa-leaf"></i></div>
           <div class="flower-corner corner-br"><i class="fas fa-heart"></i></div>
-          <img src="IMG_1972.jpeg" alt="Kerim & Jahan" loading="lazy">
+          <img src="./IMG_1972.jpeg" alt="Kerim & Jahan">
         </div>
 
-        <!-- 5. Surat -->
         <div class="flower-frame">
           <div class="flower-corner corner-tl"><i class="fas fa-leaf"></i></div>
           <div class="flower-corner corner-br"><i class="fas fa-heart"></i></div>
-          <img src="IMG_1991.jpeg" alt="Kerim & Jahan" loading="lazy">
+          <img src="./IMG_1991.jpeg" alt="Kerim & Jahan">
         </div>
 
-        <!-- 6. Surat -->
         <div class="flower-frame">
           <div class="flower-corner corner-tl"><i class="fas fa-leaf"></i></div>
           <div class="flower-corner corner-br"><i class="fas fa-heart"></i></div>
-          <img src="IMG_1992.jpeg" alt="Kerim & Jahan" loading="lazy">
+          <img src="./IMG_1992.jpeg" alt="Kerim & Jahan">
         </div>
 
       </div>
@@ -242,6 +234,49 @@
     <p>Kerim & Jahan © 2026 | Toý Çakylygy</p>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Saz we Timer JavaScript Kody -->
+  <script>
+    // 1. Countdown Timer Logic
+    const weddingDate = new Date("October 17, 2026 18:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const difference = weddingDate - now;
+
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+        document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+        document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+        document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+      } else {
+        document.getElementById("countdown").innerHTML = "<p class='text-2xl text-rose-600 font-bold col-span-4'>Toý güni geldi!</p>";
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // 2. Audio Play/Pause Toggle
+    const musicBtn = document.getElementById("music-btn");
+    const audio = document.getElementById("wedding-audio");
+    const musicIcon = document.getElementById("music-icon");
+
+    musicBtn.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+        musicIcon.classList.remove("fa-music");
+        musicIcon.classList.add("fa-pause");
+      } else {
+        audio.pause();
+        musicIcon.classList.remove("fa-pause");
+        musicIcon.classList.add("fa-music");
+      }
+    });
+  </script>
 </body>
 </html>
