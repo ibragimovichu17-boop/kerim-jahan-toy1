@@ -62,7 +62,6 @@
       background-image: linear-gradient(225deg, #f7dcd1 0%, #f4d3d8 100%);
     }
 
-    /* Subtle Light Shading */
     .panel-left::before {
       content: '';
       position: absolute;
@@ -118,7 +117,6 @@
       transition: opacity 0.5s ease 1s, visibility 0.5s ease 1s;
     }
 
-    /* Pulse animation for Emblem */
     @keyframes subtlePulse {
       0%, 100% { transform: translate(-50%, -50%) scale(1); }
       50% { transform: translate(-50%, -50%) scale(1.05); }
@@ -145,19 +143,14 @@
 </head>
 <body class="font-sans antialiased overflow-x-hidden min-h-screen">
 
-  <!-- 0. OVERLAY: ENVELOPE (SPLITS TO LEFT AND RIGHT) -->
+  <!-- OVERLAY: ENVELOPE -->
   <div id="envelope-overlay">
-    <!-- Left Side Panel -->
     <div class="panel-left"></div>
-
-    <!-- Center K & J Emblem -->
     <div id="center-seal" class="pulse-seal">
       <span class="font-cursive text-5xl md:text-6xl text-[#9c5f66] drop-shadow-sm select-none whitespace-nowrap leading-none">
         K & J
       </span>
     </div>
-
-    <!-- Right Side Panel -->
     <div class="panel-right"></div>
   </div>
 
@@ -209,7 +202,6 @@
         </p>
       </div>
 
-      <!-- Siziň IMG_1990.jpeg suratyňyz -->
       <div class="polaroid-frame mx-auto max-w-sm rounded-lg" data-aos="zoom-in-up" data-aos-duration="1200">
         <img id="main-photo"
              src="./IMG_1990.jpeg" 
@@ -241,6 +233,30 @@
 
         <p class="font-serif-custom text-2xl text-[#a06d73] mt-4 tracking-widest" data-aos="fade-up" data-aos-delay="400">18:00</p>
       </div>
+
+      <!-- GOŞULDY: YZA WAGT SANAÝJY (COUNTDOWN TIMER) -->
+      <div class="pt-6 border-t border-[#f1dcd3]" data-aos="fade-up" data-aos-delay="500">
+        <p class="font-serif-custom text-xl text-[#8c595f] mb-4">Toý gününe çenli galdy:</p>
+        
+        <div class="grid grid-cols-4 gap-2 text-center">
+          <div class="bg-[#fdf6f5] p-3 rounded-2xl border border-[#e8c4c7] shadow-sm">
+            <span id="days" class="block font-sans font-bold text-2xl text-[#9c5f66]">00</span>
+            <span class="font-serif-custom text-xs text-[#a06d73]">gün</span>
+          </div>
+          <div class="bg-[#fdf6f5] p-3 rounded-2xl border border-[#e8c4c7] shadow-sm">
+            <span id="hours" class="block font-sans font-bold text-2xl text-[#9c5f66]">00</span>
+            <span class="font-serif-custom text-xs text-[#a06d73]">sagat</span>
+          </div>
+          <div class="bg-[#fdf6f5] p-3 rounded-2xl border border-[#e8c4c7] shadow-sm">
+            <span id="minutes" class="block font-sans font-bold text-2xl text-[#9c5f66]">00</span>
+            <span class="font-serif-custom text-xs text-[#a06d73]">minut</span>
+          </div>
+          <div class="bg-[#fdf6f5] p-3 rounded-2xl border border-[#e8c4c7] shadow-sm">
+            <span id="seconds" class="block font-sans font-bold text-2xl text-[#9c5f66]">00</span>
+            <span class="font-serif-custom text-xs text-[#a06d73]">sekunt</span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- 4. BÖLÜM: MEKAN WE GOOGLE MAPS DÜMME -->
@@ -250,7 +266,6 @@
       <p class="font-sans text-stone-800 font-medium text-lg" data-aos="fade-up" data-aos-delay="300">“Bahar” restorany</p>
       <p class="font-sans text-stone-500 text-sm" data-aos="fade-up" data-aos-delay="400">Türkmenabat şäheri</p>
       
-      <!-- Google Maps Link Düwmesi -->
       <div class="pt-2" data-aos="zoom-in" data-aos-delay="500">
         <a href="https://maps.app.goo.gl/Pjxxtz4BbJ8fWMcD9?g_st=ic" 
            target="_blank" 
@@ -326,6 +341,34 @@
         musicIcon.classList.add("fa-music");
       }
     });
+
+    // TOÝA ÇENLI WAGT SANAÝJY FUNKSIÝA
+    const weddingDate = new Date("October 17, 2026 18:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const difference = weddingDate - now;
+
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+        document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+        document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+        document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+      } else {
+        document.getElementById("days").innerText = "00";
+        document.getElementById("hours").innerText = "00";
+        document.getElementById("minutes").innerText = "00";
+        document.getElementById("seconds").innerText = "00";
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
   </script>
 </body>
 </html>
