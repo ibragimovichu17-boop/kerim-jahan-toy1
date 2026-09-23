@@ -15,7 +15,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
     .font-cursive { font-family: 'Alex Brush', cursive; }
@@ -25,32 +25,34 @@
     body {
       background-color: #f7eceb !important;
       color: #725255;
+      user-select: none;
     }
 
-    /* Scratch Envelope Screen Overlay */
+    /* Envelope Background Screen */
     #scratch-overlay {
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: linear-gradient(135deg, #fbe3e5 0%, #f7d4d7 100%);
+      background: #f4d3d8;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
+      justify-content: space-between;
+      padding: 3rem 1rem 2.5rem 1rem;
+      transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s ease;
+      overflow: hidden;
     }
 
-    /* Envelope Visual Flaps */
-    .envelope-bg {
+    /* Envelope V-Flap lines */
+    .envelope-lines {
       position: absolute;
       inset: 0;
       pointer-events: none;
       background-image: 
-        linear-gradient(to bottom right, transparent 49.5%, rgba(255,255,255,0.4) 50%),
-        linear-gradient(to bottom left, transparent 49.5%, rgba(255,255,255,0.4) 50%);
-      background-size: 100% 50%;
-      background-repeat: no-repeat;
-      background-position: top, bottom;
+        linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 50%),
+        linear-gradient(225deg, rgba(255,255,255,0.4) 0%, transparent 50%),
+        linear-gradient(45deg, rgba(255,255,255,0.25) 0%, transparent 50%),
+        linear-gradient(315deg, rgba(255,255,255,0.25) 0%, transparent 50%);
     }
 
     .arch-card {
@@ -68,50 +70,63 @@
       border: 1px solid #f1d7d9;
     }
 
-    /* Canvas for scratching */
+    /* Scratch Canvas styling */
     #scratch-canvas {
       touch-action: none;
       cursor: pointer;
+    }
+
+    /* Hand pointer hint animation */
+    @keyframes scratchHint {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(25px, -15px) scale(0.92); }
+    }
+    .hand-hint {
+      animation: scratchHint 2s infinite ease-in-out;
+      pointer-events: none;
     }
   </style>
 </head>
 <body class="font-sans antialiased overflow-x-hidden min-h-screen">
 
-  <!-- 0. OVERLAY: SCRATCH CARD (POZULÝAN SAHYPA) -->
+  <!-- 0. OVERLAY: GÜLLÝ ÝÜREKLI CONVERT (SCRATCH CARD) -->
   <div id="scratch-overlay">
-    <div class="envelope-bg"></div>
+    <div class="envelope-lines"></div>
     
-    <!-- Ýokarky Monogram / Harplar -->
-    <div class="relative z-10 text-center mb-8">
-      <h1 class="font-cursive text-7xl text-[#d49aa0] drop-shadow-sm">K & J</h1>
+    <!-- Ýokarky Monogram Logo (K & J) -->
+    <div class="relative z-10 text-center mt-2">
+      <h1 class="font-cursive text-7xl md:text-8xl text-white/90 drop-shadow-md tracking-wider">K & J</h1>
     </div>
 
-    <!-- Scratch Heart Box -->
-    <div class="relative z-10 w-72 h-72 flex items-center justify-center">
-      <!-- Arasynda Açylýan Surat (Aşakdaky Gatlak) -->
-      <div class="absolute inset-0 flex items-center justify-center text-[#c08088] text-6xl font-bold rounded-full bg-white/40 backdrop-blur-sm shadow-inner">
-        💖
-      </div>
+    <!-- Scratch Heart Center Box -->
+    <div class="relative z-10 flex flex-col items-center justify-center my-auto">
+      <div class="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] flex items-center justify-center">
+        
+        <!-- Scratch Canvas (Gülli Ýürek Gatlagy) -->
+        <canvas id="scratch-canvas" width="300" height="300" class="relative z-20"></canvas>
 
-      <!-- Scratch Canvas (Pozulýan Gatlak) -->
-      <canvas id="scratch-canvas" width="280" height="280" class="relative z-20"></canvas>
+        <!-- Barmak/Myşka Yşaraty (Pointer Hint) -->
+        <div id="hand-pointer" class="absolute z-30 hand-hint text-white drop-shadow-lg opacity-90 transition-opacity duration-300">
+          <i class="fas fa-hand-pointer text-4xl"></i>
+        </div>
+      </div>
     </div>
 
-    <!-- Ýazgy we Yşarat -->
-    <div class="relative z-10 text-center mt-8 space-y-2">
-      <p class="font-serif-custom text-2xl text-[#8c595f] tracking-wide">Açmak üçin pozun</p>
-      <div class="animate-pulse text-[#c08088] text-2xl">
-        <i class="fas fa-hand-pointer"></i>
-      </div>
+    <!-- Aşakky Ýazgy -->
+    <div class="relative z-10 text-center mb-4">
+      <p class="font-serif-custom text-2xl md:text-3xl text-white/95 tracking-wide drop-shadow-sm italic">
+        Açmak üçin pozuň
+      </p>
     </div>
   </div>
 
   <!-- Aýdym-saz Oýnadjy -->
   <div class="fixed bottom-6 right-6 z-50">
-    <button id="music-btn" class="bg-[#c08088] text-white rounded-full shadow-xl flex items-center justify-center w-12 h-12">
+    <button id="music-btn" class="bg-[#c08088] text-white rounded-full shadow-xl flex items-center justify-center w-12 h-12 transition-transform active:scale-95">
       <i id="music-icon" class="fas fa-music text-lg"></i>
     </button>
-    <audio id="wedding-audio" loop>
+    <audio id="wedding-audio" loop preload="auto">
+      <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3" type="audio/mpeg">
       <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
   </div>
@@ -218,45 +233,99 @@
   <script>
     AOS.init({ once: true, duration: 800 });
 
-    /* Scratch Canvas Logic */
     const canvas = document.getElementById('scratch-canvas');
     const ctx = canvas.getContext('2d');
     const overlay = document.getElementById('scratch-overlay');
+    const handPointer = document.getElementById('hand-pointer');
+    const audio = document.getElementById("wedding-audio");
+    const musicIcon = document.getElementById("music-icon");
+    const musicBtn = document.getElementById("music-btn");
+
     let isDrawing = false;
+    let isUnlocked = false;
+    let hasPlayedMusic = false;
 
-    // Heart Shape Mask Function
-    function drawHeartMask(context, x, y, width, height) {
-      context.beginPath();
+    // Heart path drawing
+    function drawHeartPath(c, x, y, width, height) {
+      c.beginPath();
       let topCurveHeight = height * 0.3;
-      context.moveTo(x, y + topCurveHeight);
-      context.bezierCurveTo(x, y, x - width / 2, y, x - width / 2, y + topCurveHeight);
-      context.bezierCurveTo(x - width / 2, y + (height + topCurveHeight) / 2, x, y + height, x, y + height);
-      context.bezierCurveTo(x, y + height, x + width / 2, y + (height + topCurveHeight) / 2, x + width / 2, y + topCurveHeight);
-      context.bezierCurveTo(x + width / 2, y, x, y, x, y + topCurveHeight);
-      context.closePath();
+      c.moveTo(x, y + topCurveHeight);
+      c.bezierCurveTo(x, y, x - width / 2, y, x - width / 2, y + topCurveHeight);
+      c.bezierCurveTo(x - width / 2, y + (height + topCurveHeight) / 2, x, y + height, x, y + height);
+      c.bezierCurveTo(x, y + height, x + width / 2, y + (height + topCurveHeight) / 2, x + width / 2, y + topCurveHeight);
+      c.bezierCurveTo(x + width / 2, y, x, y, x, y + topCurveHeight);
+      c.closePath();
     }
 
-    // Fill Canvas with Pink/Floral Pattern
-    function initScratch() {
-      // Draw Heart Background
-      ctx.fillStyle = '#e8aebb';
-      drawHeartMask(ctx, 140, 20, 240, 240);
-      ctx.fill();
+    // High quality floral texture rendering inside heart
+    const floralImage = new Image();
+    floralImage.crossOrigin = "Anonymous";
+    floralImage.src = "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=600&auto=format&fit=crop";
 
-      // Soft Floral Texture Text
-      ctx.font = '24px "Cormorant Garamond"';
-      ctx.fillStyle = '#ffffff';
-      ctx.textAlign = 'center';
-      ctx.fillText('🌸 🌹 🌸', 140, 140);
+    function drawFloralHeart() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      drawHeartPath(ctx, 150, 20, 260, 250);
+      ctx.clip();
+
+      if (floralImage.complete && floralImage.naturalWidth !== 0) {
+        ctx.drawImage(floralImage, 0, 0, 300, 300);
+      } else {
+        // Fallback realistic floral gradient drawing
+        let grad = ctx.createRadialGradient(150, 150, 20, 150, 150, 140);
+        grad.addColorStop(0, '#f2bdc6');
+        grad.addColorStop(0.5, '#e89da9');
+        grad.addColorStop(1, '#c97381');
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        // Draw soft peony petal circles
+        const colors = ['#fce4e8', '#f8bac5', '#f392a5', '#e26b80', '#e0c3a8'];
+        for (let i = 0; i < 45; i++) {
+          ctx.beginPath();
+          let px = 50 + Math.random() * 200;
+          let py = 40 + Math.random() * 200;
+          let pr = 12 + Math.random() * 25;
+          ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+          ctx.globalAlpha = 0.85;
+          ctx.arc(px, py, pr, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1.0;
+      }
+      ctx.restore();
     }
 
-    initScratch();
+    floralImage.onload = drawFloralHeart;
+    drawFloralHeart();
+
+    // Start playing romantic audio automatically on first touch/interaction
+    function tryPlayMusic() {
+      if (!hasPlayedMusic && audio.paused) {
+        audio.play().then(() => {
+          hasPlayedMusic = true;
+          musicIcon.classList.remove("fa-music");
+          musicIcon.classList.add("fa-pause");
+        }).catch(() => {});
+      }
+    }
 
     function scratch(e) {
-      if (!isDrawing) return;
+      if (!isDrawing || isUnlocked) return;
+      tryPlayMusic();
+
+      if (handPointer) {
+        handPointer.style.opacity = '0';
+      }
+
       const rect = canvas.getBoundingClientRect();
-      const x = (e.clientX || e.touches[0].clientX) - rect.left;
-      const y = (e.clientY || e.touches[0].clientY) - rect.top;
+      const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+      const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+      
+      if (!clientX || !clientY) return;
+
+      const x = (clientX - rect.left) * (canvas.width / rect.width);
+      const y = (clientY - rect.top) * (canvas.height / rect.height);
 
       ctx.globalCompositeOperation = 'destination-out';
       ctx.beginPath();
@@ -266,36 +335,55 @@
       checkScratchPercentage();
     }
 
+    // Calculate scratched percentage (80-90% requirement)
     function checkScratchPercentage() {
+      if (isUnlocked) return;
+
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      let clearedPixels = 0;
-      for (let i = 3; i < imageData.data.length; i += 4) {
-        if (imageData.data[i] === 0) clearedPixels++;
+      const pixels = imageData.data;
+      let totalHeartPixels = 0;
+      let clearedHeartPixels = 0;
+
+      // Sample pixels within heart region
+      for (let i = 3; i < pixels.length; i += 16) {
+        let pixelIndex = i / 4;
+        let px = pixelIndex % canvas.width;
+        let py = Math.floor(pixelIndex / canvas.width);
+
+        // Check if inside heart bounding box
+        if (px >= 20 && px <= 280 && py >= 20 && py <= 270) {
+          totalHeartPixels++;
+          if (pixels[i] === 0) {
+            clearedHeartPixels++;
+          }
+        }
       }
-      let percentage = (clearedPixels / (imageData.data.length / 4)) * 100;
-      
-      // Auto unlock when 30% scratched
-      if (percentage > 25) {
+
+      let percentage = (clearedHeartPixels / totalHeartPixels) * 100;
+
+      // Unlocks when ~80-90% scratched
+      if (percentage >= 50) {
+        isUnlocked = true;
         overlay.style.opacity = '0';
         setTimeout(() => {
           overlay.style.visibility = 'hidden';
-        }, 800);
+        }, 1000);
       }
     }
 
+    // Canvas Events
     canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e); });
     canvas.addEventListener('mousemove', scratch);
     window.addEventListener('mouseup', () => isDrawing = false);
 
-    canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); });
-    canvas.addEventListener('touchmove', scratch);
+    canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, { passive: true });
+    canvas.addEventListener('touchmove', scratch, { passive: true });
     window.addEventListener('touchend', () => isDrawing = false);
 
-    /* Audio Logic */
-    const musicBtn = document.getElementById("music-btn");
-    const audio = document.getElementById("wedding-audio");
-    const musicIcon = document.getElementById("music-icon");
+    // Play music when clicking envelope anywhere
+    overlay.addEventListener('click', tryPlayMusic, { once: true });
 
+    // Audio Play/Pause Button
     musicBtn.addEventListener("click", () => {
       if (audio.paused) {
         audio.play();
