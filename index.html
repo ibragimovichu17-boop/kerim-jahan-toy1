@@ -44,7 +44,7 @@
       object-fit: cover;
       width: 100%;
       max-height: 550px;
-      background-color: #fce7f3;
+      display: block;
     }
 
     .flower-corner {
@@ -77,7 +77,7 @@
     </audio>
   </div>
 
-  <!-- Main Hero Section ("Biz öýlenýäris!" aýryldy) -->
+  <!-- Main Hero Section -->
   <section class="h-screen bg-wedding flex flex-col items-center justify-center text-center text-white px-4 relative">
     <div data-aos="zoom-in" data-aos-duration="1200">
       <h1 class="font-cursive text-7xl md:text-9xl my-4 text-rose-200 drop-shadow-lg">Kerim & Jahan</h1>
@@ -115,7 +115,7 @@
     </div>
   </section>
 
-  <!-- ÝENI SURAT BÖLÜMI (Diňe 1 Surat we aşagynda goşgy) -->
+  <!-- SURAT WE GOŞGY BÖLÜMI -->
   <section class="py-16 px-4 bg-rose-50/40 text-center">
     <div class="max-w-xl mx-auto">
       
@@ -123,8 +123,7 @@
       <div class="flower-frame mb-12" data-aos="zoom-in-up" data-aos-duration="1000">
         <div class="flower-corner corner-tl"><i class="fas fa-leaf"></i></div>
         <div class="flower-corner corner-br"><i class="fas fa-heart"></i></div>
-        <!-- Suradyň ady GitHub-da nähili bolsa şony ýazyň -->
-        <img src="./IMG_1993.jpeg" alt="Kerim & Jahan" class="w-full h-auto">
+        <img src="IMG_1965.jpeg" alt="Kerim & Jahan" class="w-full h-auto">
       </div>
 
       <!-- Goşgy Bölümi -->
@@ -158,40 +157,8 @@
     </div>
   </section>
 
-  <!-- RSVP Form -->
-  <section class="py-16 px-4 bg-white text-center">
-    <div class="max-w-md mx-auto" data-aos="fade-up" data-aos-duration="1000">
-      <h2 class="font-cursive text-4xl text-rose-600 mb-4">Gatnaşjakdygyňyzy tassyklaň</h2>
-      <p class="text-sm text-stone-500 mb-6">Haýyş edýäris, toýa gatnaşyp biljekdigiňiz barada öňünden habar beriň!</p>
-
-      <form id="rsvp-form" class="space-y-4 text-left">
-        <div>
-          <label class="block text-xs font-semibold uppercase mb-1">Adyňyz we Familiýaňyz</label>
-          <input type="text" id="guest-name" required placeholder="Mes: Ahmet Ahmetow" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-400">
-        </div>
-
-        <div>
-          <label class="block text-xs font-semibold uppercase mb-1">Gatnaşjakdygyňyz</label>
-          <select id="guest-status" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-400">
-            <option value="Hawa, höwes bilen bararyn!">Hawa, höwes bilen bararyn!</option>
-            <option value="Bagyşlaň, baryp bilmerem">Bagyşlaň, baryp bilmerem</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="block text-xs font-semibold uppercase mb-1">Neçe adam bolup barýarsyňyz?</label>
-          <input type="number" id="guest-count" value="1" min="1" max="10" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-400">
-        </div>
-
-        <button type="submit" class="w-full bg-rose-500 hover:bg-rose-600 text-white font-semibold py-3 rounded-lg shadow transition">
-          Ugratmak
-        </button>
-      </form>
-    </div>
-  </section>
-
   <!-- Footer -->
-  <footer class="py-6 text-center text-xs text-stone-400 border-t">
+  <footer class="py-6 text-center text-xs text-stone-400 border-t bg-white">
     <p>Kerim & Jahan © 2026 | Toý Çakylygy</p>
   </footer>
 
@@ -205,7 +172,7 @@
       duration: 800
     });
 
-    // 1. Countdown Timer Logic
+    // Countdown Timer Logic
     const weddingDate = new Date("October 17, 2026 18:00:00").getTime();
 
     function updateCountdown() {
@@ -230,7 +197,7 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // 2. Audio Play/Pause Toggle
+    // Audio Play/Pause Toggle
     const musicBtn = document.getElementById("music-btn");
     const audio = document.getElementById("wedding-audio");
     const musicIcon = document.getElementById("music-icon");
