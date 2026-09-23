@@ -175,11 +175,8 @@
 
     <!-- 1. BÖLÜM: HERO ARCH CARD -->
     <section class="arch-card px-6 pt-16 pb-10 text-center relative mt-2" data-aos="fade-up" data-aos-duration="1200">
-      
-      <!-- Gül Bezegi -->
       <div class="text-[#c08088] text-3xl mb-4" data-aos="zoom-in" data-aos-delay="200">🌸</div>
 
-      <!-- Monogram Logo -->
       <div class="w-16 h-16 mx-auto mb-4 border-2 border-[#d8a8ad] rounded-full flex items-center justify-center bg-white/50" data-aos="zoom-in" data-aos-delay="300">
         <span class="font-cursive text-3xl text-[#9c5f66] whitespace-nowrap">K&J</span>
       </div>
@@ -212,13 +209,12 @@
         </p>
       </div>
 
-      <!-- Surat Gatlagy Animasiýasy -->
+      <!-- Siziň IMG_1990.jpeg suratyňyz -->
       <div class="polaroid-frame mx-auto max-w-sm rounded-lg" data-aos="zoom-in-up" data-aos-duration="1200">
         <img id="main-photo"
-             src="IMG_1990.jpeg" 
+             src="./IMG_1990.jpeg" 
              alt="Kerim & Jahan" 
-             class="w-full h-auto aspect-[4/3] object-cover rounded shadow-inner"
-             onerror="loadFallbackPhoto(this)">
+             class="w-full h-auto aspect-[4/3] object-cover rounded shadow-inner">
       </div>
     </section>
 
@@ -287,7 +283,6 @@
   <!-- AOS Animasiýa JS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    // AOS animasiýalary sazlamak
     AOS.init({ 
       once: false, 
       duration: 1000,
@@ -301,12 +296,10 @@
 
     let isOpened = false;
 
-    // Open Envelope on Click
     overlay.addEventListener('click', () => {
       if (isOpened) return;
       isOpened = true;
 
-      // Play music automatically
       if (audio.paused) {
         audio.play().then(() => {
           musicIcon.classList.remove("fa-music");
@@ -314,16 +307,13 @@
         }).catch(e => console.log("Audio autoplay prevented", e));
       }
 
-      // Trigger split opening animation
       overlay.classList.add('opened');
 
-      // Refresh AOS animation triggers after envelope opens
       setTimeout(() => {
         AOS.refresh();
       }, 600);
     });
 
-    // Audio Play/Pause Toggle Button
     musicBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       if (audio.paused) {
@@ -336,12 +326,6 @@
         musicIcon.classList.add("fa-music");
       }
     });
-
-    // Fallback if local file IMG_1990.jpeg isn't found
-    function loadFallbackPhoto(img) {
-      img.onerror = null;
-      img.src = 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop';
-    }
   </script>
 </body>
 </html>
