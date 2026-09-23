@@ -22,13 +22,37 @@
     .font-serif-custom { font-family: 'Cormorant Garamond', serif; }
     .font-sans { font-family: 'Montserrat', sans-serif; }
     
-    /* Mermer Reňkli Fon */
     body {
       background-color: #f7eceb !important;
       color: #725255;
     }
 
-    /* Skrinşotdaky yaly Aroçnyý (Arch) çakylyk kazy */
+    /* Scratch Envelope Screen Overlay */
+    #scratch-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: linear-gradient(135deg, #fbe3e5 0%, #f7d4d7 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    /* Envelope Visual Flaps */
+    .envelope-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: 
+        linear-gradient(to bottom right, transparent 49.5%, rgba(255,255,255,0.4) 50%),
+        linear-gradient(to bottom left, transparent 49.5%, rgba(255,255,255,0.4) 50%);
+      background-size: 100% 50%;
+      background-repeat: no-repeat;
+      background-position: top, bottom;
+    }
+
     .arch-card {
       border-top-left-radius: 200px;
       border-top-right-radius: 200px;
@@ -37,16 +61,50 @@
       box-shadow: 0 10px 30px rgba(192, 128, 136, 0.15);
     }
 
-    /* Polaroid Surat Ramkasy */
     .polaroid-frame {
       background: #ffffff;
       padding: 12px 12px 20px 12px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.06);
       border: 1px solid #f1d7d9;
     }
+
+    /* Canvas for scratching */
+    #scratch-canvas {
+      touch-action: none;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body class="font-sans antialiased overflow-x-hidden min-h-screen">
+
+  <!-- 0. OVERLAY: SCRATCH CARD (POZULÝAN SAHYPA) -->
+  <div id="scratch-overlay">
+    <div class="envelope-bg"></div>
+    
+    <!-- Ýokarky Monogram / Harplar -->
+    <div class="relative z-10 text-center mb-8">
+      <h1 class="font-cursive text-7xl text-[#d49aa0] drop-shadow-sm">K & J</h1>
+    </div>
+
+    <!-- Scratch Heart Box -->
+    <div class="relative z-10 w-72 h-72 flex items-center justify-center">
+      <!-- Arasynda Açylýan Surat (Aşakdaky Gatlak) -->
+      <div class="absolute inset-0 flex items-center justify-center text-[#c08088] text-6xl font-bold rounded-full bg-white/40 backdrop-blur-sm shadow-inner">
+        💖
+      </div>
+
+      <!-- Scratch Canvas (Pozulýan Gatlak) -->
+      <canvas id="scratch-canvas" width="280" height="280" class="relative z-20"></canvas>
+    </div>
+
+    <!-- Ýazgy we Yşarat -->
+    <div class="relative z-10 text-center mt-8 space-y-2">
+      <p class="font-serif-custom text-2xl text-[#8c595f] tracking-wide">Açmak üçin pozun</p>
+      <div class="animate-pulse text-[#c08088] text-2xl">
+        <i class="fas fa-hand-pointer"></i>
+      </div>
+    </div>
+  </div>
 
   <!-- Aýdym-saz Oýnadjy -->
   <div class="fixed bottom-6 right-6 z-50">
@@ -64,9 +122,7 @@
     <section class="arch-card px-6 pt-16 pb-10 text-center relative mt-2" data-aos="fade-up" data-aos-duration="1000">
       
       <!-- Gül Bezegi -->
-      <div class="text-[#c08088] text-3xl mb-4">
-        🌸
-      </div>
+      <div class="text-[#c08088] text-3xl mb-4">🌸</div>
 
       <!-- Monogram Logo -->
       <div class="w-16 h-16 mx-auto mb-4 border-2 border-[#d8a8ad] rounded-full flex items-center justify-center bg-white/50">
@@ -91,11 +147,8 @@
 
     <!-- 2. BÖLÜM: GOŞGY WE SURAT -->
     <section class="text-center space-y-6" data-aos="fade-up">
-      
-      <!-- Gül nyşany -->
       <div class="text-4xl text-[#c08088]">🌺</div>
 
-      <!-- Goşgy -->
       <div class="px-2">
         <p class="font-serif-custom italic text-2xl md:text-3xl leading-relaxed text-[#8c595f] font-semibold">
           Bagt – söýgi bilen başlaýar,<br>
@@ -104,16 +157,13 @@
         </p>
       </div>
 
-      <!-- Surat -->
       <div class="polaroid-frame mx-auto max-w-xs rounded-lg">
         <img src="IMG_1990.jpeg" alt="Kerim & Jahan" class="w-full h-80 object-cover rounded">
       </div>
-
     </section>
 
     <!-- 3. BÖLÜM: ÇAKYLYK WE SENE -->
     <section class="text-center space-y-6 bg-white/80 p-8 rounded-3xl border border-[#f1dcd3] shadow-sm" data-aos="fade-up">
-      
       <p class="font-serif-custom text-2xl leading-relaxed text-[#8c595f]">
         Biz Sizi iň bagtly günümiziň gadyrly myhmany bolmagyňyza çagyrýarys!
       </p>
@@ -121,12 +171,10 @@
       <div class="pt-2">
         <h3 class="font-cursive text-4xl text-[#a06d73] mb-4">Oktýabr 2026</h3>
         
-        <!-- Kalendar Sene -->
         <div class="flex justify-center items-center gap-3 text-lg font-serif-custom text-[#8c595f]">
           <span class="opacity-40">15</span>
           <span class="opacity-60">16</span>
           
-          <!-- Toý Güni Kalendar -->
           <div class="w-10 h-10 flex items-center justify-center font-bold text-white bg-[#c08088] rounded-full shadow-md text-xl">
             17
           </div>
@@ -137,7 +185,6 @@
 
         <p class="font-serif-custom text-2xl text-[#a06d73] mt-4 tracking-widest">18:00</p>
       </div>
-
     </section>
 
     <!-- 4. BÖLÜM: MEKAN -->
@@ -171,6 +218,80 @@
   <script>
     AOS.init({ once: true, duration: 800 });
 
+    /* Scratch Canvas Logic */
+    const canvas = document.getElementById('scratch-canvas');
+    const ctx = canvas.getContext('2d');
+    const overlay = document.getElementById('scratch-overlay');
+    let isDrawing = false;
+
+    // Heart Shape Mask Function
+    function drawHeartMask(context, x, y, width, height) {
+      context.beginPath();
+      let topCurveHeight = height * 0.3;
+      context.moveTo(x, y + topCurveHeight);
+      context.bezierCurveTo(x, y, x - width / 2, y, x - width / 2, y + topCurveHeight);
+      context.bezierCurveTo(x - width / 2, y + (height + topCurveHeight) / 2, x, y + height, x, y + height);
+      context.bezierCurveTo(x, y + height, x + width / 2, y + (height + topCurveHeight) / 2, x + width / 2, y + topCurveHeight);
+      context.bezierCurveTo(x + width / 2, y, x, y, x, y + topCurveHeight);
+      context.closePath();
+    }
+
+    // Fill Canvas with Pink/Floral Pattern
+    function initScratch() {
+      // Draw Heart Background
+      ctx.fillStyle = '#e8aebb';
+      drawHeartMask(ctx, 140, 20, 240, 240);
+      ctx.fill();
+
+      // Soft Floral Texture Text
+      ctx.font = '24px "Cormorant Garamond"';
+      ctx.fillStyle = '#ffffff';
+      ctx.textAlign = 'center';
+      ctx.fillText('🌸 🌹 🌸', 140, 140);
+    }
+
+    initScratch();
+
+    function scratch(e) {
+      if (!isDrawing) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.clientX || e.touches[0].clientX) - rect.left;
+      const y = (e.clientY || e.touches[0].clientY) - rect.top;
+
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.beginPath();
+      ctx.arc(x, y, 22, 0, Math.PI * 2);
+      ctx.fill();
+
+      checkScratchPercentage();
+    }
+
+    function checkScratchPercentage() {
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      let clearedPixels = 0;
+      for (let i = 3; i < imageData.data.length; i += 4) {
+        if (imageData.data[i] === 0) clearedPixels++;
+      }
+      let percentage = (clearedPixels / (imageData.data.length / 4)) * 100;
+      
+      // Auto unlock when 30% scratched
+      if (percentage > 25) {
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+          overlay.style.visibility = 'hidden';
+        }, 800);
+      }
+    }
+
+    canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e); });
+    canvas.addEventListener('mousemove', scratch);
+    window.addEventListener('mouseup', () => isDrawing = false);
+
+    canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); });
+    canvas.addEventListener('touchmove', scratch);
+    window.addEventListener('touchend', () => isDrawing = false);
+
+    /* Audio Logic */
     const musicBtn = document.getElementById("music-btn");
     const audio = document.getElementById("wedding-audio");
     const musicIcon = document.getElementById("music-icon");
