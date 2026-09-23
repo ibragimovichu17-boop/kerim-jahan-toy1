@@ -8,7 +8,7 @@
   <!-- ==================== OPEN GRAPH (PREVIEW SURAT) METATEGELERI ==================== -->
   <meta property="og:title" content="Kerim & Jahan - Toý Çakylygy" />
   <meta property="og:description" content="Biz Sizi iň bagtly günümiziň gadyrly myhmany bolmagyňyza çagyrýarys!" />
-  <meta property="og:image" content="https://kerim-jahan-toy1.vercel.app/photo.jpg" />
+  <meta property="og:image" content="https://kerim-jahan-toy1.vercel.app/IMG_1990.jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:type" content="website" />
@@ -18,7 +18,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Kerim & Jahan - Toý Çakylygy" />
   <meta name="twitter:description" content="Biz Sizi iň bagtly günümiziň gadyrly myhmany bolmagyňyza çagyrýarys!" />
-  <meta name="twitter:image" content="https://kerim-jahan-toy1.vercel.app/photo.jpg" />
+  <meta name="twitter:image" content="https://kerim-jahan-toy1.vercel.app/IMG_1990.jpeg" />
   <!-- =================================================================================== -->
 
   <!-- Tailwind CSS & FontAwesome -->
@@ -176,9 +176,9 @@
       <i id="music-icon" class="fas fa-music text-lg"></i>
     </button>
 
-    <!-- ROMANTIK MEŞHUR SAZ (Yiruma - River Flows in You Piano Version) -->
+    <!-- LUCAS TM - HOŞGELDIŇ ÖMRÜME (Lucas.mp3.mp3 faýlyňyz) -->
     <audio id="wedding-audio" loop preload="auto">
-      <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=piano-moment-11488.mp3" type="audio/mpeg">
+      <source src="Lucas.mp3.mp3#t=11" type="audio/mpeg">
     </audio>
   </div>
 
@@ -222,7 +222,7 @@
 
       <div class="polaroid-frame mx-auto max-w-sm rounded-lg" data-aos="zoom-in-up" data-aos-duration="1200">
         <img id="main-photo"
-             src="photo.jpg" 
+             src="IMG_1990.jpeg" 
              alt="Kerim & Jahan" 
              class="w-full h-auto aspect-[4/3] object-cover rounded shadow-inner">
       </div>
@@ -277,7 +277,7 @@
       </div>
     </section>
 
-    <!-- 4. BÖLÜM: MEKAN TÄZELENEN BÖLEK -->
+    <!-- 4. BÖLÜM: MEKAN -->
     <section class="text-center space-y-4 bg-white/80 p-6 rounded-3xl border border-[#f1dcd3] shadow-sm" data-aos="fade-up" data-aos-duration="1000">
       <i class="fas fa-map-marker-alt text-3xl text-[#c08088]" data-aos="zoom-in" data-aos-delay="100"></i>
       <h3 class="font-serif-custom text-3xl text-[#8c595f] font-semibold" data-aos="fade-up" data-aos-delay="200">“Bahar” restorany</h3>
@@ -314,6 +314,8 @@
 
   <!-- AOS Animasiýa JS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <!-- JAVASCRIPT KODY -->
   <script>
     AOS.init({ 
       once: false, 
@@ -328,16 +330,17 @@
 
     let isOpened = false;
 
-    // AÝDYMY BAŞLATMAK WE DÜWME BILEN DOLANDYRMAK
+    // KONWERTE BASYLANDA AÝDYMY 11-NJI SEKUNTDAN BAŞLATMAK
     overlay.addEventListener('click', () => {
       if (isOpened) return;
       isOpened = true;
 
       if (audio.paused) {
+        audio.currentTime = 11; // 11-nji sekunda geçirýär
         audio.play().then(() => {
           musicIcon.classList.remove("fa-music");
           musicIcon.classList.add("fa-pause");
-        }).catch(e => console.log("Audio autoplay prevented", e));
+        }).catch(e => console.log("Audio play error", e));
       }
 
       overlay.classList.add('opened');
@@ -347,10 +350,14 @@
       }, 600);
     });
 
+    // SAKLAMAK / PLAY DÜWMESI
     musicBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       if (audio.paused) {
         isOpened = true;
+        if (audio.currentTime < 11) {
+          audio.currentTime = 11;
+        }
         audio.play();
         musicIcon.classList.remove("fa-music");
         musicIcon.classList.add("fa-pause");
@@ -361,7 +368,7 @@
       }
     });
 
-    // TOÝA ÇENLI WAGT SANAÝJY
+    // TOÝA ÇENLI WAGT SANAÝJY (COUNTDOWN)
     const weddingDate = new Date("October 17, 2026 18:00:00").getTime();
 
     function updateCountdown() {
