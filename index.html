@@ -28,33 +28,36 @@
       user-select: none;
     }
 
-    /* Envelope Background Screen */
-    #scratch-overlay {
+    /* Fullscreen Envelope Overlay */
+    #envelope-overlay {
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: #f4d3d8;
+      background: #f5d4d9;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 3rem 1rem 2.5rem 1rem;
-      transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s ease;
+      padding: 3rem 1rem 3rem 1rem;
+      transition: background-color 1.2s ease, opacity 1.2s ease, visibility 1.2s ease;
+      cursor: pointer;
       overflow: hidden;
     }
 
-    /* Envelope V-Flap lines */
+    /* Envelope Background V-Lines */
     .envelope-lines {
       position: absolute;
       inset: 0;
       pointer-events: none;
       background-image: 
-        linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 50%),
-        linear-gradient(225deg, rgba(255,255,255,0.4) 0%, transparent 50%),
-        linear-gradient(45deg, rgba(255,255,255,0.25) 0%, transparent 50%),
-        linear-gradient(315deg, rgba(255,255,255,0.25) 0%, transparent 50%);
+        linear-gradient(135deg, rgba(255,255,255,0.45) 0%, transparent 48%),
+        linear-gradient(225deg, rgba(255,255,255,0.45) 0%, transparent 48%),
+        linear-gradient(45deg, rgba(255,255,255,0.3) 0%, transparent 48%),
+        linear-gradient(315deg, rgba(255,255,255,0.3) 0%, transparent 48%);
+      transition: opacity 1s ease;
     }
 
+    /* Arch Card Styling */
     .arch-card {
       border-top-left-radius: 200px;
       border-top-right-radius: 200px;
@@ -70,52 +73,203 @@
       border: 1px solid #f1d7d9;
     }
 
-    /* Scratch Canvas styling */
-    #scratch-canvas {
-      touch-action: none;
-      cursor: pointer;
+    /* Split Heart Animation Containers */
+    .heart-wrapper {
+      position: relative;
+      width: 300px;
+      height: 280px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    /* Hand pointer hint animation */
-    @keyframes scratchHint {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(25px, -15px) scale(0.92); }
+    .heart-half {
+      position: absolute;
+      top: 0;
+      width: 150px;
+      height: 280px;
+      transition: transform 1.2s cubic-bezier(0.7, 0, 0.25, 1), opacity 1s ease;
+      will-change: transform, opacity;
     }
-    .hand-hint {
-      animation: scratchHint 2s infinite ease-in-out;
+
+    .heart-half-left {
+      left: 0;
+      transform-origin: left center;
+    }
+
+    .heart-half-right {
+      right: 0;
+      transform-origin: right center;
+    }
+
+    /* When clicked: Heart splits open to left & right */
+    #envelope-overlay.opened .heart-half-left {
+      transform: translateX(-160%) rotate(-20deg) scale(0.9);
+      opacity: 0;
+    }
+
+    #envelope-overlay.opened .heart-half-right {
+      transform: translateX(160%) rotate(20deg) scale(0.9);
+      opacity: 0;
+    }
+
+    #envelope-overlay.opened .fade-element {
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 0.8s ease;
+    }
+
+    #envelope-overlay.opened {
+      opacity: 0;
+      visibility: hidden;
       pointer-events: none;
+    }
+
+    /* Pulse tap animation for hand icon */
+    @keyframes pulseTap {
+      0%, 100% { transform: scale(1) translateY(0); }
+      50% { transform: scale(1.15) translateY(-8px); }
+    }
+    .tap-hint {
+      animation: pulseTap 1.6s infinite ease-in-out;
     }
   </style>
 </head>
 <body class="font-sans antialiased overflow-x-hidden min-h-screen">
 
-  <!-- 0. OVERLAY: GÜLLÝ ÝÜREKLI CONVERT (SCRATCH CARD) -->
-  <div id="scratch-overlay">
+  <!-- 0. OVERLAY: GÜLLÝ ÝÜREKLI CONVERT (CLICK TO SPLIT OPEN) -->
+  <div id="envelope-overlay">
     <div class="envelope-lines"></div>
     
     <!-- Ýokarky Monogram Logo (K & J) -->
-    <div class="relative z-10 text-center mt-2">
-      <h1 class="font-cursive text-7xl md:text-8xl text-white/90 drop-shadow-md tracking-wider">K & J</h1>
+    <div class="relative z-10 text-center mt-4 fade-element">
+      <h1 class="font-cursive text-7xl md:text-8xl text-white/95 drop-shadow-md tracking-wider">K & J</h1>
     </div>
 
-    <!-- Scratch Heart Center Box -->
-    <div class="relative z-10 flex flex-col items-center justify-center my-auto">
-      <div class="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] flex items-center justify-center">
-        
-        <!-- Scratch Canvas (Gülli Ýürek Gatlagy) -->
-        <canvas id="scratch-canvas" width="300" height="300" class="relative z-20"></canvas>
+    <!-- Center Interactive Heart (Splits into 2 halves on tap) -->
+    <div class="relative z-20 heart-wrapper my-auto">
+      
+      <!-- LEFT HALF OF FLORAL HEART -->
+      <div class="heart-half heart-half-left">
+        <svg viewBox="0 0 150 280" class="w-full h-full drop-shadow-xl">
+          <defs>
+            <clipPath id="left-heart-clip">
+              <path d="M 150 270 C 150 270 10 180 10 90 C 10 32 55 10 105 10 C 128 10 142 22 150 35 L 150 270 Z" />
+            </clipPath>
+            <linearGradient id="bg-grad-left" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fce4e8"/>
+              <stop offset="50%" stop-color="#f2adb8"/>
+              <stop offset="100%" stop-color="#d87b8c"/>
+            </linearGradient>
+          </defs>
 
-        <!-- Barmak/Myşka Yşaraty (Pointer Hint) -->
-        <div id="hand-pointer" class="absolute z-30 hand-hint text-white drop-shadow-lg opacity-90 transition-opacity duration-300">
-          <i class="fas fa-hand-pointer text-4xl"></i>
-        </div>
+          <!-- Heart Base -->
+          <path d="M 150 270 C 150 270 10 180 10 90 C 10 32 55 10 105 10 C 128 10 142 22 150 35 L 150 270 Z" fill="url(#bg-grad-left)" />
+
+          <!-- Peonies & Roses Art (Clipped inside Left Heart) -->
+          <g clip-path="url(#left-heart-clip)">
+            <!-- Leaves -->
+            <path d="M 30 110 C 10 90 20 60 50 80 Z" fill="#88a078" opacity="0.85"/>
+            <path d="M 60 180 C 30 180 30 140 70 150 Z" fill="#6b855b" opacity="0.8"/>
+            <path d="M 20 150 C 0 130 10 100 40 120 Z" fill="#9db88c" opacity="0.8"/>
+
+            <!-- Big Main Peony Bloom (Left) -->
+            <circle cx="75" cy="100" r="48" fill="#fce8eb" />
+            <circle cx="75" cy="100" r="40" fill="#f7bfc9" />
+            <circle cx="70" cy="95" r="32" fill="#eb889b" />
+            <circle cx="78" cy="102" r="24" fill="#d9687e" />
+            <circle cx="72" cy="98" r="15" fill="#fef0cd" />
+            <circle cx="72" cy="98" r="8" fill="#e6ad3c" />
+
+            <!-- Secondary Petal Clusters -->
+            <circle cx="125" cy="65" r="30" fill="#fcedf0" />
+            <circle cx="125" cy="65" r="22" fill="#f09cae" />
+            <circle cx="120" cy="60" r="14" fill="#cb566c" />
+
+            <!-- Bottom Rose -->
+            <circle cx="100" cy="180" r="36" fill="#fae1e5" />
+            <circle cx="100" cy="180" r="28" fill="#e88d9e" />
+            <circle cx="95" cy="175" r="18" fill="#c44d63" />
+            <circle cx="95" cy="175" r="8" fill="#fce5b1" />
+
+            <!-- Small Accent Petals -->
+            <circle cx="45" cy="60" r="16" fill="#f8cad2" />
+            <circle cx="40" cy="190" r="20" fill="#f5b3c0" />
+            <circle cx="130" cy="220" r="22" fill="#f9d5dc" />
+            <circle cx="130" cy="220" r="14" fill="#e07b8f" />
+          </g>
+
+          <!-- Gold Inner Edge Accent -->
+          <path d="M 150 270 C 150 270 10 180 10 90 C 10 32 55 10 105 10 C 128 10 142 22 150 35" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.6"/>
+        </svg>
       </div>
+
+      <!-- RIGHT HALF OF FLORAL HEART -->
+      <div class="heart-half heart-half-right">
+        <svg viewBox="150 0 150 280" class="w-full h-full drop-shadow-xl">
+          <defs>
+            <clipPath id="right-heart-clip">
+              <path d="M 150 270 C 150 270 290 180 290 90 C 290 32 245 10 195 10 C 172 10 158 22 150 35 L 150 270 Z" />
+            </clipPath>
+            <linearGradient id="bg-grad-right" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fce4e8"/>
+              <stop offset="50%" stop-color="#f2adb8"/>
+              <stop offset="100%" stop-color="#d87b8c"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Heart Base -->
+          <path d="M 150 270 C 150 270 290 180 290 90 C 290 32 245 10 195 10 C 172 10 158 22 150 35 L 150 270 Z" fill="url(#bg-grad-right)" />
+
+          <!-- Peonies & Roses Art (Clipped inside Right Heart) -->
+          <g clip-path="url(#right-heart-clip)">
+            <!-- Leaves -->
+            <path d="M 270 110 C 290 90 280 60 250 80 Z" fill="#88a078" opacity="0.85"/>
+            <path d="M 240 180 C 270 180 270 140 230 150 Z" fill="#6b855b" opacity="0.8"/>
+            <path d="M 280 150 C 300 130 290 100 260 120 Z" fill="#9db88c" opacity="0.8"/>
+
+            <!-- Main Peony Bloom (Right) -->
+            <circle cx="215" cy="120" r="46" fill="#fce8eb" />
+            <circle cx="215" cy="120" r="38" fill="#f5b3c0" />
+            <circle cx="210" cy="115" r="28" fill="#e27488" />
+            <circle cx="218" cy="122" r="20" fill="#c94e64" />
+            <circle cx="212" cy="118" r="12" fill="#fef0cd" />
+            <circle cx="212" cy="118" r="6" fill="#e6ad3c" />
+
+            <!-- Top Right Rose -->
+            <circle cx="180" cy="65" r="32" fill="#fcedf0" />
+            <circle cx="180" cy="65" r="24" fill="#f09cae" />
+            <circle cx="175" cy="60" r="15" fill="#cb566c" />
+
+            <!-- Bottom Flower -->
+            <circle cx="200" cy="195" r="38" fill="#fae1e5" />
+            <circle cx="200" cy="195" r="29" fill="#e88d9e" />
+            <circle cx="195" cy="190" r="18" fill="#c44d63" />
+            <circle cx="195" cy="190" r="8" fill="#fce5b1" />
+
+            <!-- Small Accent Petals -->
+            <circle cx="255" cy="60" r="16" fill="#f8cad2" />
+            <circle cx="260" cy="190" r="20" fill="#f5b3c0" />
+            <circle cx="170" cy="225" r="22" fill="#f9d5dc" />
+            <circle cx="170" cy="225" r="14" fill="#e07b8f" />
+          </g>
+
+          <!-- Gold Inner Edge Accent -->
+          <path d="M 150 270 C 150 270 290 180 290 90 C 290 32 245 10 195 10 C 172 10 158 22 150 35" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.6"/>
+        </svg>
+      </div>
+
+      <!-- Hand Pointer Click Icon -->
+      <div class="absolute z-30 tap-hint text-white drop-shadow-lg pointer-events-none flex flex-col items-center">
+        <i class="fas fa-hand-pointer text-4xl text-white"></i>
+      </div>
+
     </div>
 
     <!-- Aşakky Ýazgy -->
-    <div class="relative z-10 text-center mb-4">
+    <div class="relative z-10 text-center mb-4 fade-element">
       <p class="font-serif-custom text-2xl md:text-3xl text-white/95 tracking-wide drop-shadow-sm italic">
-        Açmak üçin pozuň
+        Açmak üçin basyň
       </p>
     </div>
   </div>
@@ -233,158 +387,33 @@
   <script>
     AOS.init({ once: true, duration: 800 });
 
-    const canvas = document.getElementById('scratch-canvas');
-    const ctx = canvas.getContext('2d');
-    const overlay = document.getElementById('scratch-overlay');
-    const handPointer = document.getElementById('hand-pointer');
+    const overlay = document.getElementById('envelope-overlay');
     const audio = document.getElementById("wedding-audio");
     const musicIcon = document.getElementById("music-icon");
     const musicBtn = document.getElementById("music-btn");
 
-    let isDrawing = false;
-    let isUnlocked = false;
-    let hasPlayedMusic = false;
+    let isOpened = false;
 
-    // Heart path drawing
-    function drawHeartPath(c, x, y, width, height) {
-      c.beginPath();
-      let topCurveHeight = height * 0.3;
-      c.moveTo(x, y + topCurveHeight);
-      c.bezierCurveTo(x, y, x - width / 2, y, x - width / 2, y + topCurveHeight);
-      c.bezierCurveTo(x - width / 2, y + (height + topCurveHeight) / 2, x, y + height, x, y + height);
-      c.bezierCurveTo(x, y + height, x + width / 2, y + (height + topCurveHeight) / 2, x + width / 2, y + topCurveHeight);
-      c.bezierCurveTo(x + width / 2, y, x, y, x, y + topCurveHeight);
-      c.closePath();
-    }
+    // Split Heart & Open Envelope on Tap
+    overlay.addEventListener('click', () => {
+      if (isOpened) return;
+      isOpened = true;
 
-    // High quality floral texture rendering inside heart
-    const floralImage = new Image();
-    floralImage.crossOrigin = "Anonymous";
-    floralImage.src = "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=600&auto=format&fit=crop";
-
-    function drawFloralHeart() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.save();
-      drawHeartPath(ctx, 150, 20, 260, 250);
-      ctx.clip();
-
-      if (floralImage.complete && floralImage.naturalWidth !== 0) {
-        ctx.drawImage(floralImage, 0, 0, 300, 300);
-      } else {
-        // Fallback realistic floral gradient drawing
-        let grad = ctx.createRadialGradient(150, 150, 20, 150, 150, 140);
-        grad.addColorStop(0, '#f2bdc6');
-        grad.addColorStop(0.5, '#e89da9');
-        grad.addColorStop(1, '#c97381');
-        ctx.fillStyle = grad;
-        ctx.fill();
-
-        // Draw soft peony petal circles
-        const colors = ['#fce4e8', '#f8bac5', '#f392a5', '#e26b80', '#e0c3a8'];
-        for (let i = 0; i < 45; i++) {
-          ctx.beginPath();
-          let px = 50 + Math.random() * 200;
-          let py = 40 + Math.random() * 200;
-          let pr = 12 + Math.random() * 25;
-          ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
-          ctx.globalAlpha = 0.85;
-          ctx.arc(px, py, pr, 0, Math.PI * 2);
-          ctx.fill();
-        }
-        ctx.globalAlpha = 1.0;
-      }
-      ctx.restore();
-    }
-
-    floralImage.onload = drawFloralHeart;
-    drawFloralHeart();
-
-    // Start playing romantic audio automatically on first touch/interaction
-    function tryPlayMusic() {
-      if (!hasPlayedMusic && audio.paused) {
+      // Play romantic background music
+      if (audio.paused) {
         audio.play().then(() => {
-          hasPlayedMusic = true;
           musicIcon.classList.remove("fa-music");
           musicIcon.classList.add("fa-pause");
-        }).catch(() => {});
-      }
-    }
-
-    function scratch(e) {
-      if (!isDrawing || isUnlocked) return;
-      tryPlayMusic();
-
-      if (handPointer) {
-        handPointer.style.opacity = '0';
+        }).catch(e => console.log("Audio autoplay prevented", e));
       }
 
-      const rect = canvas.getBoundingClientRect();
-      const clientX = e.clientX || (e.touches && e.touches[0].clientX);
-      const clientY = e.clientY || (e.touches && e.touches[0].clientY);
-      
-      if (!clientX || !clientY) return;
-
-      const x = (clientX - rect.left) * (canvas.width / rect.width);
-      const y = (clientY - rect.top) * (canvas.height / rect.height);
-
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.beginPath();
-      ctx.arc(x, y, 22, 0, Math.PI * 2);
-      ctx.fill();
-
-      checkScratchPercentage();
-    }
-
-    // Calculate scratched percentage (80-90% requirement)
-    function checkScratchPercentage() {
-      if (isUnlocked) return;
-
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const pixels = imageData.data;
-      let totalHeartPixels = 0;
-      let clearedHeartPixels = 0;
-
-      // Sample pixels within heart region
-      for (let i = 3; i < pixels.length; i += 16) {
-        let pixelIndex = i / 4;
-        let px = pixelIndex % canvas.width;
-        let py = Math.floor(pixelIndex / canvas.width);
-
-        // Check if inside heart bounding box
-        if (px >= 20 && px <= 280 && py >= 20 && py <= 270) {
-          totalHeartPixels++;
-          if (pixels[i] === 0) {
-            clearedHeartPixels++;
-          }
-        }
-      }
-
-      let percentage = (clearedHeartPixels / totalHeartPixels) * 100;
-
-      // Unlocks when ~80-90% scratched
-      if (percentage >= 50) {
-        isUnlocked = true;
-        overlay.style.opacity = '0';
-        setTimeout(() => {
-          overlay.style.visibility = 'hidden';
-        }, 1000);
-      }
-    }
-
-    // Canvas Events
-    canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e); });
-    canvas.addEventListener('mousemove', scratch);
-    window.addEventListener('mouseup', () => isDrawing = false);
-
-    canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, { passive: true });
-    canvas.addEventListener('touchmove', scratch, { passive: true });
-    window.addEventListener('touchend', () => isDrawing = false);
-
-    // Play music when clicking envelope anywhere
-    overlay.addEventListener('click', tryPlayMusic, { once: true });
+      // Add split opening class
+      overlay.classList.add('opened');
+    });
 
     // Audio Play/Pause Button
-    musicBtn.addEventListener("click", () => {
+    musicBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
       if (audio.paused) {
         audio.play();
         musicIcon.classList.remove("fa-music");
