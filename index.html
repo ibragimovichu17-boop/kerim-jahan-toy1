@@ -22,37 +22,27 @@
     .font-serif-custom { font-family: 'Cormorant Garamond', serif; }
     .font-sans { font-family: 'Montserrat', sans-serif; }
     
-    /* Soft Marble Background */
+    /* Mermer Reňkli Fon */
     body {
-      background-color: #fdf8f7;
-      background-image: radial-gradient(#f4e3e2 1px, transparent 1px), radial-gradient(#f4e3e2 1px, #fdf8f7 1px);
-      background-size: 40px 40px;
-      background-position: 0 0, 20px 20px;
+      background-color: #f7eceb !important;
       color: #725255;
     }
 
-    /* Arch Box Design (1-nji skrinşotdaky dizaýn) */
+    /* Skrinşotdaky yaly Aroçnyý (Arch) çakylyk kazy */
     .arch-card {
-      border-top-left-radius: 180px;
-      border-top-right-radius: 180px;
-      background: linear-gradient(180deg, #fbf2f1 0%, #ffffff 100%);
-      border: 2px solid #ecd5d8;
-      box-shadow: 0 15px 35px rgba(212, 165, 165, 0.2);
+      border-top-left-radius: 200px;
+      border-top-right-radius: 200px;
+      background: #fdf6f5;
+      border: 3px solid #e8c4c7;
+      box-shadow: 0 10px 30px rgba(192, 128, 136, 0.15);
     }
 
-    /* Polaroid Image Frame */
+    /* Polaroid Surat Ramkasy */
     .polaroid-frame {
       background: #ffffff;
-      padding: 12px 12px 24px 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-      border: 1px solid #f3e5e6;
-    }
-
-    /* Heart Calendar Badge */
-    .heart-badge {
-      background-color: #c08088;
-      color: white;
-      clip-path: path("M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z");
+      padding: 12px 12px 20px 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      border: 1px solid #f1d7d9;
     }
   </style>
 </head>
@@ -60,7 +50,7 @@
 
   <!-- Aýdym-saz Oýnadjy -->
   <div class="fixed bottom-6 right-6 z-50">
-    <button id="music-btn" class="bg-[#c08088] text-white p-4 rounded-full shadow-2xl hover:scale-105 transition flex items-center justify-center w-12 h-12">
+    <button id="music-btn" class="bg-[#c08088] text-white rounded-full shadow-xl flex items-center justify-center w-12 h-12">
       <i id="music-icon" class="fas fa-music text-lg"></i>
     </button>
     <audio id="wedding-audio" loop>
@@ -68,24 +58,30 @@
     </audio>
   </div>
 
-  <main class="max-w-md mx-auto px-4 py-8 space-y-16">
+  <main class="max-w-md mx-auto px-4 py-6 space-y-12">
 
-    <!-- HERO SECTION (Arch / Aroçnyý dizaýn) -->
-    <section class="arch-card px-6 pt-16 pb-12 text-center relative mt-4" data-aos="fade-up" data-aos-duration="1200">
-      <!-- Monogram SVG / Logo -->
-      <div class="w-16 h-16 mx-auto mb-6 border border-[#d8a8ad] rounded-full flex items-center justify-center">
+    <!-- 1. BÖLÜM: HERO ARCH CARD (Skrinşot 1) -->
+    <section class="arch-card px-6 pt-16 pb-10 text-center relative mt-2" data-aos="fade-up" data-aos-duration="1000">
+      
+      <!-- Gül Bezegi (Top Corner Flowers) -->
+      <div class="text-[#c08088] text-3xl mb-4">
+        🌸
+      </div>
+
+      <!-- Monogram Logo -->
+      <div class="w-16 h-16 mx-auto mb-4 border-2 border-[#d8a8ad] rounded-full flex items-center justify-center bg-white/50">
         <span class="font-cursive text-3xl text-[#9c5f66]">K&J</span>
       </div>
 
-      <h2 class="font-serif-custom text-2xl tracking-widest text-[#8c595f] uppercase mb-8">Toý çakylyk</h2>
+      <h2 class="font-serif-custom text-2xl tracking-widest text-[#8c595f] uppercase mb-6">Toý çakylyk</h2>
 
-      <div class="my-6">
-        <h1 class="font-cursive text-6xl text-[#9c5f66] my-2">Kerim</h1>
-        <p class="font-cursive text-4xl text-[#c08088] my-1">&</p>
-        <h1 class="font-cursive text-6xl text-[#9c5f66] my-2">Jahan</h1>
+      <div class="my-4">
+        <h1 class="font-cursive text-6xl text-[#9c5f66] my-1">Kerim</h1>
+        <p class="font-cursive text-3xl text-[#c08088] my-1">&</p>
+        <h1 class="font-cursive text-6xl text-[#9c5f66] my-1">Jahan</h1>
       </div>
 
-      <div class="mt-12 pt-6">
+      <div class="mt-10 pt-4">
         <p class="font-serif-custom text-lg tracking-wider text-[#a06d73] mb-2">Aşak geçiriň</p>
         <div class="animate-bounce text-[#c08088] text-xl">
           <i class="fas fa-chevron-down"></i>
@@ -93,11 +89,14 @@
       </div>
     </section>
 
-    <!-- GOŞGY WE SURAT SECTION -->
-    <section class="text-center space-y-8" data-aos="fade-up" data-aos-duration="1000">
+    <!-- 2. BÖLÜM: GOŞGY WE SURAT (Skrinşot 2) -->
+    <section class="text-center space-y-6" data-aos="fade-up">
       
+      <!-- Gül nyşany -->
+      <div class="text-4xl text-[#c08088]">🌺</div>
+
       <!-- Goşgy -->
-      <div class="px-4">
+      <div class="px-2">
         <p class="font-serif-custom italic text-2xl md:text-3xl leading-relaxed text-[#8c595f] font-semibold">
           Bagt – söýgi bilen başlaýar,<br>
           söýgi bilen dowam edýär,<br>
@@ -105,31 +104,30 @@
         </p>
       </div>
 
-      <!-- Surat (Polaroid görnüşinde) -->
-      <div class="polaroid-frame mx-auto max-w-xs transform -rotate-1 hover:rotate-0 transition duration-500" data-aos="zoom-in">
-        <img src="IMG_1990.jpeg" alt="Kerim & Jahan" class="w-full h-80 object-cover rounded-sm">
+      <!-- Surat -->
+      <div class="polaroid-frame mx-auto max-w-xs rounded-lg">
+        <img src="IMG_1990.jpeg" alt="Kerim & Jahan" class="w-full h-80 object-cover rounded">
       </div>
 
     </section>
 
-    <!-- ÇAKYLYK WE SENE SECTION -->
-    <section class="text-center space-y-8 bg-white/70 backdrop-blur-sm p-8 rounded-3xl border border-[#f1dcd3] shadow-sm" data-aos="fade-up">
+    <!-- 3. BÖLÜM: ÇAKYLYK WE SENE (Skrinşot 3) -->
+    <section class="text-center space-y-6 bg-white/80 p-8 rounded-3xl border border-[#f1dcd3] shadow-sm" data-aos="fade-up">
       
       <p class="font-serif-custom text-2xl leading-relaxed text-[#8c595f]">
         Biz Sizi iň bagtly günümiziň gadyrly myhmany bolmagyňyza çagyrýarys!
       </p>
 
-      <!-- Kalendar Bölümi -->
-      <div class="pt-4">
-        <h3 class="font-cursive text-4xl text-[#a06d73] mb-6">Oktýabr 2026</h3>
+      <div class="pt-2">
+        <h3 class="font-cursive text-4xl text-[#a06d73] mb-4">Oktýabr 2026</h3>
         
-        <!-- Hepde günleri / Seneler -->
+        <!-- Kalendar Sene -->
         <div class="flex justify-center items-center gap-3 text-lg font-serif-custom text-[#8c595f]">
           <span class="opacity-40">15</span>
           <span class="opacity-60">16</span>
           
-          <!-- Toý Sene Badjy -->
-          <div class="relative w-12 h-12 flex items-center justify-center font-bold text-white bg-[#c08088] rounded-full shadow-md text-xl">
+          <!-- Toý Güni Kalendar Ýürege Meňzeş -->
+          <div class="w-10 h-10 flex items-center justify-center font-bold text-white bg-[#c08088] rounded-full shadow-md text-xl">
             17
           </div>
 
@@ -137,24 +135,24 @@
           <span class="opacity-40">19</span>
         </div>
 
-        <p class="font-serif-custom text-2xl text-[#a06d73] mt-6 tracking-widest">18:00</p>
+        <p class="font-serif-custom text-2xl text-[#a06d73] mt-4 tracking-widest">18:00</p>
       </div>
 
     </section>
 
-    <!-- MEKAN BÖLÜMI -->
-    <section class="text-center space-y-4 bg-white/70 backdrop-blur-sm p-8 rounded-3xl border border-[#f1dcd3] shadow-sm" data-aos="fade-up">
-      <i class="fas fa-map-marker-alt text-2xl text-[#c08088] mb-1"></i>
+    <!-- 4. BÖLÜM: MEKAN -->
+    <section class="text-center space-y-3 bg-white/80 p-6 rounded-3xl border border-[#f1dcd3] shadow-sm" data-aos="fade-up">
+      <i class="fas fa-map-marker-alt text-2xl text-[#c08088]"></i>
       <h3 class="font-serif-custom text-2xl text-[#8c595f] font-semibold">Mekan</h3>
-      <p class="font-sans text-stone-600">“Bahar” restorany</p>
+      <p class="font-sans text-stone-700">“Bahar” restorany</p>
       <p class="font-sans text-stone-500 text-sm">Türkmenabat şäheri</p>
     </section>
 
-    <!-- FOOTER (MADE WITH LOVE BY) -->
-    <footer class="text-center pt-8 pb-12 space-y-4 border-t border-[#ebd1d4]" data-aos="fade-up">
+    <!-- 5. BÖLÜM: FOOTER (Skrinşot 4) -->
+    <footer class="text-center pt-6 pb-10 space-y-4 border-t border-[#ebd1d4]" data-aos="fade-up">
       <p class="font-serif-custom text-xl text-[#8c595f]">Hormatlamak bilen,<br>Kerim & Jahan maşgalasy</p>
       
-      <div class="pt-6 space-y-2">
+      <div class="pt-4 space-y-2">
         <div class="text-[#c08088] text-lg"><i class="far fa-heart"></i></div>
         <p class="font-serif-custom text-lg text-[#725255]">Made with love by</p>
         <a href="https://instagram.com/u.m_1213" target="_blank" class="block font-serif-custom italic text-xl text-[#9c5f66] hover:underline">
