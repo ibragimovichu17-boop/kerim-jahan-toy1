@@ -8,7 +8,7 @@
   <!-- ==================== OPEN GRAPH (PREVIEW SURAT) METATEGELERI ==================== -->
   <meta property="og:title" content="Kerim & Jahan - Toý Çakylygy" />
   <meta property="og:description" content="Biz Sizi iň bagtly günümiziň gadyrly myhmany bolmagyňyza çagyrýarys!" />
-  <meta property="og:image" content="https://kerim-jahan-toy1.vercel.app/IMG_1990.jpeg" />
+  <meta property="og:image" content="https://kerim-jahan-toy1.vercel.app/photo.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:type" content="website" />
@@ -18,7 +18,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Kerim & Jahan - Toý Çakylygy" />
   <meta name="twitter:description" content="Biz Sizi iň bagtly günümiziň gadyrly myhmany bolmagyňyza çagyrýarys!" />
-  <meta name="twitter:image" content="https://kerim-jahan-toy1.vercel.app/IMG_1990.jpeg" />
+  <meta name="twitter:image" content="https://kerim-jahan-toy1.vercel.app/photo.jpg" />
   <!-- =================================================================================== -->
 
   <!-- Tailwind CSS & FontAwesome -->
@@ -176,9 +176,9 @@
       <i id="music-icon" class="fas fa-music text-lg"></i>
     </button>
 
-    <!-- ÝÜKLENILEN TÄZE AÝDYM -->
+    <!-- ROMANTIK MEŞHUR SAZ (Yiruma - River Flows in You Piano Version) -->
     <audio id="wedding-audio" loop preload="auto">
-      <source src="copy_1D78BEEC-3576-4A52-BC73-736F7E45F238.mp3" type="audio/mpeg">
+      <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=piano-moment-11488.mp3" type="audio/mpeg">
     </audio>
   </div>
 
@@ -222,7 +222,7 @@
 
       <div class="polaroid-frame mx-auto max-w-sm rounded-lg" data-aos="zoom-in-up" data-aos-duration="1200">
         <img id="main-photo"
-             src="./IMG_1990.jpeg" 
+             src="photo.jpg" 
              alt="Kerim & Jahan" 
              class="w-full h-auto aspect-[4/3] object-cover rounded shadow-inner">
       </div>
@@ -328,13 +328,12 @@
 
     let isOpened = false;
 
-    // AÝDYMY 11-NJI SEKUNTDAN BAŞLATMAK WE DÜWME BILELEN DOLANDYRMAK
+    // AÝDYMY BAŞLATMAK WE DÜWME BILEN DOLANDYRMAK
     overlay.addEventListener('click', () => {
       if (isOpened) return;
       isOpened = true;
 
       if (audio.paused) {
-        audio.currentTime = 11; // 11-nji sekuntdan başlaýar
         audio.play().then(() => {
           musicIcon.classList.remove("fa-music");
           musicIcon.classList.add("fa-pause");
@@ -351,10 +350,7 @@
     musicBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       if (audio.paused) {
-        if (!isOpened) {
-          audio.currentTime = 11; // Eger ilkinji gezek basylsa 11-nji sekuntdan başlaýar
-          isOpened = true;
-        }
+        isOpened = true;
         audio.play();
         musicIcon.classList.remove("fa-music");
         musicIcon.classList.add("fa-pause");
