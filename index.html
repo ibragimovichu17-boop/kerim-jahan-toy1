@@ -26,38 +26,106 @@
       background-color: #f7eceb !important;
       color: #725255;
       user-select: none;
+      overflow-x: hidden;
     }
 
-    /* Fullscreen Envelope Overlay */
+    /* FULLSCREEN ENVELOPE OVERLAY */
     #envelope-overlay {
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: #f5d4d9;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      padding: 3rem 1rem 3rem 1rem;
-      transition: background-color 1.2s ease, opacity 1.2s ease, visibility 1.2s ease;
       cursor: pointer;
       overflow: hidden;
     }
 
-    /* Envelope Background V-Lines */
-    .envelope-lines {
+    /* Left and Right Split Panels */
+    .panel-left, .panel-right {
       position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background-image: 
-        linear-gradient(135deg, rgba(255,255,255,0.45) 0%, transparent 48%),
-        linear-gradient(225deg, rgba(255,255,255,0.45) 0%, transparent 48%),
-        linear-gradient(45deg, rgba(255,255,255,0.3) 0%, transparent 48%),
-        linear-gradient(315deg, rgba(255,255,255,0.3) 0%, transparent 48%);
-      transition: opacity 1s ease;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      background: #f4d3d8;
+      transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+      z-index: 10;
+      box-shadow: 0 0 20px rgba(0,0,0,0.08);
     }
 
-    /* Arch Card Styling */
+    .panel-left {
+      left: 0;
+      border-right: 1px solid rgba(255,255,255,0.4);
+      background-image: linear-gradient(135deg, #f7dcd1 0%, #f4d3d8 100%);
+    }
+
+    .panel-right {
+      right: 0;
+      border-left: 1px solid rgba(255,255,255,0.4);
+      background-image: linear-gradient(225deg, #f7dcd1 0%, #f4d3d8 100%);
+    }
+
+    /* V-Shape Subtle Lines on Panels */
+    .panel-left::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(135deg, rgba(255,255,255,0.35) 0%, transparent 50%);
+    }
+
+    .panel-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(225deg, rgba(255,255,255,0.35) 0%, transparent 50%);
+    }
+
+    /* Center K & J Emblem / Seal */
+    #center-seal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: #fdf6f5;
+      border: 3px solid #e8c4c7;
+      box-shadow: 0 12px 35px rgba(192, 128, 136, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    /* Opening Animation States */
+    #envelope-overlay.opened .panel-left {
+      transform: translateX(-100%);
+    }
+
+    #envelope-overlay.opened .panel-right {
+      transform: translateX(100%);
+    }
+
+    #envelope-overlay.opened #center-seal {
+      transform: translate(-50%, -50%) scale(0) rotate(180deg);
+      opacity: 0;
+    }
+
+    #envelope-overlay.opened {
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease 1s, visibility 0.5s ease 1s;
+    }
+
+    /* Pulse animation for K & J Emblem */
+    @keyframes subtlePulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.06); }
+    }
+    .pulse-seal {
+      animation: subtlePulse 2.5s infinite ease-in-out;
+    }
+
     .arch-card {
       border-top-left-radius: 200px;
       border-top-right-radius: 200px;
@@ -72,206 +140,24 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.06);
       border: 1px solid #f1d7d9;
     }
-
-    /* Split Heart Animation Containers */
-    .heart-wrapper {
-      position: relative;
-      width: 300px;
-      height: 280px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .heart-half {
-      position: absolute;
-      top: 0;
-      width: 150px;
-      height: 280px;
-      transition: transform 1.2s cubic-bezier(0.7, 0, 0.25, 1), opacity 1s ease;
-      will-change: transform, opacity;
-    }
-
-    .heart-half-left {
-      left: 0;
-      transform-origin: left center;
-    }
-
-    .heart-half-right {
-      right: 0;
-      transform-origin: right center;
-    }
-
-    /* When clicked: Heart splits open to left & right */
-    #envelope-overlay.opened .heart-half-left {
-      transform: translateX(-160%) rotate(-20deg) scale(0.9);
-      opacity: 0;
-    }
-
-    #envelope-overlay.opened .heart-half-right {
-      transform: translateX(160%) rotate(20deg) scale(0.9);
-      opacity: 0;
-    }
-
-    #envelope-overlay.opened .fade-element {
-      opacity: 0;
-      transform: translateY(-20px);
-      transition: all 0.8s ease;
-    }
-
-    #envelope-overlay.opened {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    /* Pulse tap animation for hand icon */
-    @keyframes pulseTap {
-      0%, 100% { transform: scale(1) translateY(0); }
-      50% { transform: scale(1.15) translateY(-8px); }
-    }
-    .tap-hint {
-      animation: pulseTap 1.6s infinite ease-in-out;
-    }
   </style>
 </head>
 <body class="font-sans antialiased overflow-x-hidden min-h-screen">
 
-  <!-- 0. OVERLAY: GÜLLÝ ÝÜREKLI CONVERT (CLICK TO SPLIT OPEN) -->
+  <!-- 0. OVERLAY: CONVERT (SPLITS OPEN FROM CENTER TO BOTH SIDES) -->
   <div id="envelope-overlay">
-    <div class="envelope-lines"></div>
-    
-    <!-- Ýokarky Monogram Logo (K & J) -->
-    <div class="relative z-10 text-center mt-4 fade-element">
-      <h1 class="font-cursive text-7xl md:text-8xl text-white/95 drop-shadow-md tracking-wider">K & J</h1>
+    <!-- Left Side Panel -->
+    <div class="panel-left"></div>
+
+    <!-- Center K & J Emblem -->
+    <div id="center-seal" class="pulse-seal">
+      <span class="font-cursive text-6xl md:text-7xl text-[#9c5f66] drop-shadow-sm select-none">
+        K & J
+      </span>
     </div>
 
-    <!-- Center Interactive Heart (Splits into 2 halves on tap) -->
-    <div class="relative z-20 heart-wrapper my-auto">
-      
-      <!-- LEFT HALF OF FLORAL HEART -->
-      <div class="heart-half heart-half-left">
-        <svg viewBox="0 0 150 280" class="w-full h-full drop-shadow-xl">
-          <defs>
-            <clipPath id="left-heart-clip">
-              <path d="M 150 270 C 150 270 10 180 10 90 C 10 32 55 10 105 10 C 128 10 142 22 150 35 L 150 270 Z" />
-            </clipPath>
-            <linearGradient id="bg-grad-left" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#fce4e8"/>
-              <stop offset="50%" stop-color="#f2adb8"/>
-              <stop offset="100%" stop-color="#d87b8c"/>
-            </linearGradient>
-          </defs>
-
-          <!-- Heart Base -->
-          <path d="M 150 270 C 150 270 10 180 10 90 C 10 32 55 10 105 10 C 128 10 142 22 150 35 L 150 270 Z" fill="url(#bg-grad-left)" />
-
-          <!-- Peonies & Roses Art (Clipped inside Left Heart) -->
-          <g clip-path="url(#left-heart-clip)">
-            <!-- Leaves -->
-            <path d="M 30 110 C 10 90 20 60 50 80 Z" fill="#88a078" opacity="0.85"/>
-            <path d="M 60 180 C 30 180 30 140 70 150 Z" fill="#6b855b" opacity="0.8"/>
-            <path d="M 20 150 C 0 130 10 100 40 120 Z" fill="#9db88c" opacity="0.8"/>
-
-            <!-- Big Main Peony Bloom (Left) -->
-            <circle cx="75" cy="100" r="48" fill="#fce8eb" />
-            <circle cx="75" cy="100" r="40" fill="#f7bfc9" />
-            <circle cx="70" cy="95" r="32" fill="#eb889b" />
-            <circle cx="78" cy="102" r="24" fill="#d9687e" />
-            <circle cx="72" cy="98" r="15" fill="#fef0cd" />
-            <circle cx="72" cy="98" r="8" fill="#e6ad3c" />
-
-            <!-- Secondary Petal Clusters -->
-            <circle cx="125" cy="65" r="30" fill="#fcedf0" />
-            <circle cx="125" cy="65" r="22" fill="#f09cae" />
-            <circle cx="120" cy="60" r="14" fill="#cb566c" />
-
-            <!-- Bottom Rose -->
-            <circle cx="100" cy="180" r="36" fill="#fae1e5" />
-            <circle cx="100" cy="180" r="28" fill="#e88d9e" />
-            <circle cx="95" cy="175" r="18" fill="#c44d63" />
-            <circle cx="95" cy="175" r="8" fill="#fce5b1" />
-
-            <!-- Small Accent Petals -->
-            <circle cx="45" cy="60" r="16" fill="#f8cad2" />
-            <circle cx="40" cy="190" r="20" fill="#f5b3c0" />
-            <circle cx="130" cy="220" r="22" fill="#f9d5dc" />
-            <circle cx="130" cy="220" r="14" fill="#e07b8f" />
-          </g>
-
-          <!-- Gold Inner Edge Accent -->
-          <path d="M 150 270 C 150 270 10 180 10 90 C 10 32 55 10 105 10 C 128 10 142 22 150 35" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.6"/>
-        </svg>
-      </div>
-
-      <!-- RIGHT HALF OF FLORAL HEART -->
-      <div class="heart-half heart-half-right">
-        <svg viewBox="150 0 150 280" class="w-full h-full drop-shadow-xl">
-          <defs>
-            <clipPath id="right-heart-clip">
-              <path d="M 150 270 C 150 270 290 180 290 90 C 290 32 245 10 195 10 C 172 10 158 22 150 35 L 150 270 Z" />
-            </clipPath>
-            <linearGradient id="bg-grad-right" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#fce4e8"/>
-              <stop offset="50%" stop-color="#f2adb8"/>
-              <stop offset="100%" stop-color="#d87b8c"/>
-            </linearGradient>
-          </defs>
-
-          <!-- Heart Base -->
-          <path d="M 150 270 C 150 270 290 180 290 90 C 290 32 245 10 195 10 C 172 10 158 22 150 35 L 150 270 Z" fill="url(#bg-grad-right)" />
-
-          <!-- Peonies & Roses Art (Clipped inside Right Heart) -->
-          <g clip-path="url(#right-heart-clip)">
-            <!-- Leaves -->
-            <path d="M 270 110 C 290 90 280 60 250 80 Z" fill="#88a078" opacity="0.85"/>
-            <path d="M 240 180 C 270 180 270 140 230 150 Z" fill="#6b855b" opacity="0.8"/>
-            <path d="M 280 150 C 300 130 290 100 260 120 Z" fill="#9db88c" opacity="0.8"/>
-
-            <!-- Main Peony Bloom (Right) -->
-            <circle cx="215" cy="120" r="46" fill="#fce8eb" />
-            <circle cx="215" cy="120" r="38" fill="#f5b3c0" />
-            <circle cx="210" cy="115" r="28" fill="#e27488" />
-            <circle cx="218" cy="122" r="20" fill="#c94e64" />
-            <circle cx="212" cy="118" r="12" fill="#fef0cd" />
-            <circle cx="212" cy="118" r="6" fill="#e6ad3c" />
-
-            <!-- Top Right Rose -->
-            <circle cx="180" cy="65" r="32" fill="#fcedf0" />
-            <circle cx="180" cy="65" r="24" fill="#f09cae" />
-            <circle cx="175" cy="60" r="15" fill="#cb566c" />
-
-            <!-- Bottom Flower -->
-            <circle cx="200" cy="195" r="38" fill="#fae1e5" />
-            <circle cx="200" cy="195" r="29" fill="#e88d9e" />
-            <circle cx="195" cy="190" r="18" fill="#c44d63" />
-            <circle cx="195" cy="190" r="8" fill="#fce5b1" />
-
-            <!-- Small Accent Petals -->
-            <circle cx="255" cy="60" r="16" fill="#f8cad2" />
-            <circle cx="260" cy="190" r="20" fill="#f5b3c0" />
-            <circle cx="170" cy="225" r="22" fill="#f9d5dc" />
-            <circle cx="170" cy="225" r="14" fill="#e07b8f" />
-          </g>
-
-          <!-- Gold Inner Edge Accent -->
-          <path d="M 150 270 C 150 270 290 180 290 90 C 290 32 245 10 195 10 C 172 10 158 22 150 35" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.6"/>
-        </svg>
-      </div>
-
-      <!-- Hand Pointer Click Icon -->
-      <div class="absolute z-30 tap-hint text-white drop-shadow-lg pointer-events-none flex flex-col items-center">
-        <i class="fas fa-hand-pointer text-4xl text-white"></i>
-      </div>
-
-    </div>
-
-    <!-- Aşakky Ýazgy -->
-    <div class="relative z-10 text-center mb-4 fade-element">
-      <p class="font-serif-custom text-2xl md:text-3xl text-white/95 tracking-wide drop-shadow-sm italic">
-        Açmak üçin basyň
-      </p>
-    </div>
+    <!-- Right Side Panel -->
+    <div class="panel-right"></div>
   </div>
 
   <!-- Aýdym-saz Oýnadjy -->
@@ -326,8 +212,12 @@
         </p>
       </div>
 
+      <!-- Surat Gatlagy (Ynamly Yuklenish üçin Fallback bilen) -->
       <div class="polaroid-frame mx-auto max-w-xs rounded-lg">
-        <img src="IMG_1990.jpeg" alt="Kerim & Jahan" class="w-full h-80 object-cover rounded">
+        <img src="IMG_1990.jpeg" 
+             alt="Kerim & Jahan" 
+             class="w-full h-80 object-cover rounded shadow-inner"
+             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop';">
       </div>
     </section>
 
@@ -394,12 +284,12 @@
 
     let isOpened = false;
 
-    // Split Heart & Open Envelope on Tap
+    // Open Envelope (Split Left/Right) on Click
     overlay.addEventListener('click', () => {
       if (isOpened) return;
       isOpened = true;
 
-      // Play romantic background music
+      // Play romantic music automatically
       if (audio.paused) {
         audio.play().then(() => {
           musicIcon.classList.remove("fa-music");
@@ -407,11 +297,11 @@
         }).catch(e => console.log("Audio autoplay prevented", e));
       }
 
-      // Add split opening class
+      // Trigger split opening animation
       overlay.classList.add('opened');
     });
 
-    // Audio Play/Pause Button
+    // Audio Play/Pause Toggle Button
     musicBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       if (audio.paused) {
