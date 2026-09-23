@@ -15,185 +15,163 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@1,500;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
-    .font-cursive { font-family: 'Great Vibes', cursive; }
+    .font-cursive { font-family: 'Alex Brush', cursive; }
+    .font-serif-custom { font-family: 'Cormorant Garamond', serif; }
     .font-sans { font-family: 'Montserrat', sans-serif; }
-    .font-poem { font-family: 'Playfair Display', serif; }
     
-    .bg-wedding {
-      background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
+    /* Soft Marble Background */
+    body {
+      background-color: #fdf8f7;
+      background-image: radial-gradient(#f4e3e2 1px, transparent 1px), radial-gradient(#f4e3e2 1px, #fdf8f7 1px);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+      color: #725255;
     }
 
-    /* Gülli ramka dizaýny */
-    .flower-frame {
-      position: relative;
+    /* Arch Box Design (1-nji skrinşotdaky dizaýn) */
+    .arch-card {
+      border-top-left-radius: 180px;
+      border-top-right-radius: 180px;
+      background: linear-gradient(180deg, #fbf2f1 0%, #ffffff 100%);
+      border: 2px solid #ecd5d8;
+      box-shadow: 0 15px 35px rgba(212, 165, 165, 0.2);
+    }
+
+    /* Polaroid Image Frame */
+    .polaroid-frame {
       background: #ffffff;
-      padding: 12px;
-      border-radius: 1.5rem;
-      border: 2px solid #fbcfe8;
-      box-shadow: 0 10px 30px rgba(244, 63, 94, 0.15);
+      padding: 12px 12px 24px 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      border: 1px solid #f3e5e6;
     }
 
-    .flower-frame img {
-      border-radius: 1.2rem;
-      object-fit: cover;
-      width: 100%;
-      max-height: 550px;
-      display: block;
+    /* Heart Calendar Badge */
+    .heart-badge {
+      background-color: #c08088;
+      color: white;
+      clip-path: path("M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z");
     }
-
-    .flower-corner {
-      position: absolute;
-      font-size: 1.1rem;
-      color: #f43f5e;
-      z-index: 10;
-      background: white;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.12);
-    }
-    .corner-tl { top: -10px; left: -10px; }
-    .corner-br { bottom: -10px; right: -10px; }
   </style>
 </head>
-<body class="bg-stone-50 font-sans text-stone-800 antialiased overflow-x-hidden">
+<body class="font-sans antialiased overflow-x-hidden min-h-screen">
 
   <!-- Aýdym-saz Oýnadjy -->
-  <div class="fixed top-4 right-4 z-50">
-    <button id="music-btn" class="bg-white/80 backdrop-blur-md p-3 rounded-full shadow-lg hover:bg-white transition text-rose-600">
-      <i id="music-icon" class="fas fa-music text-xl"></i>
+  <div class="fixed bottom-6 right-6 z-50">
+    <button id="music-btn" class="bg-[#c08088] text-white p-4 rounded-full shadow-2xl hover:scale-105 transition flex items-center justify-center w-12 h-12">
+      <i id="music-icon" class="fas fa-music text-lg"></i>
     </button>
     <audio id="wedding-audio" loop>
       <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
   </div>
 
-  <!-- Main Hero Section -->
-  <section class="h-screen bg-wedding flex flex-col items-center justify-center text-center text-white px-4 relative">
-    <div data-aos="zoom-in" data-aos-duration="1200">
-      <h1 class="font-cursive text-7xl md:text-9xl my-4 text-rose-200 drop-shadow-lg">Kerim & Jahan</h1>
-      <p class="text-xl md:text-2xl font-light tracking-widest uppercase">17.10.2026 | Türkmenabat şäheri</p>
-    </div>
-    
-    <div class="absolute bottom-10 animate-bounce">
-      <a href="#details" class="text-white text-2xl"><i class="fas fa-chevron-down"></i></a>
-    </div>
-  </section>
+  <main class="max-w-md mx-auto px-4 py-8 space-y-16">
 
-  <!-- Countdown (Toý gününe çenli wagt) -->
-  <section id="details" class="py-16 px-4 bg-white text-center">
-    <div class="max-w-3xl mx-auto" data-aos="fade-up" data-aos-duration="1000">
-      <h2 class="font-cursive text-4xl md:text-5xl text-rose-600 mb-6">Toý gününe çenli:</h2>
-      
-      <div id="countdown" class="grid grid-cols-4 gap-4 max-w-lg mx-auto text-stone-700">
-        <div class="p-4 bg-rose-50 rounded-xl shadow-sm" data-aos="flip-left" data-aos-delay="100">
-          <span id="days" class="block text-3xl font-bold text-rose-600">00</span>
-          <span class="text-xs uppercase font-medium">Gün</span>
-        </div>
-        <div class="p-4 bg-rose-50 rounded-xl shadow-sm" data-aos="flip-left" data-aos-delay="200">
-          <span id="hours" class="block text-3xl font-bold text-rose-600">00</span>
-          <span class="text-xs uppercase font-medium">Sagt</span>
-        </div>
-        <div class="p-4 bg-rose-50 rounded-xl shadow-sm" data-aos="flip-left" data-aos-delay="300">
-          <span id="minutes" class="block text-3xl font-bold text-rose-600">00</span>
-          <span class="text-xs uppercase font-medium">Minut</span>
-        </div>
-        <div class="p-4 bg-rose-50 rounded-xl shadow-sm" data-aos="flip-left" data-aos-delay="400">
-          <span id="seconds" class="block text-3xl font-bold text-rose-600">00</span>
-          <span class="text-xs uppercase font-medium">Sekunt</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SURAT WE GOŞGY BÖLÜMI -->
-  <section class="py-16 px-4 bg-rose-50/40 text-center">
-    <div class="max-w-xl mx-auto">
-      
-      <!-- Surat (IMG_1990.jpeg salgysy takyk düzüldi) -->
-      <div class="flower-frame mb-12" data-aos="zoom-in-up" data-aos-duration="1000">
-        <div class="flower-corner corner-tl"><i class="fas fa-leaf"></i></div>
-        <div class="flower-corner corner-br"><i class="fas fa-heart"></i></div>
-        <img src="IMG_1990.jpeg" alt="Kerim & Jahan" class="w-full h-auto">
+    <!-- HERO SECTION (Arch / Aroçnyý dizaýn) -->
+    <section class="arch-card px-6 pt-16 pb-12 text-center relative mt-4" data-aos="fade-up" data-aos-duration="1200">
+      <!-- Monogram SVG / Logo -->
+      <div class="w-16 h-16 mx-auto mb-6 border border-[#d8a8ad] rounded-full flex items-center justify-center">
+        <span class="font-cursive text-3xl text-[#9c5f66]">K&J</span>
       </div>
 
-      <!-- Goşgy Bölümi -->
-      <div class="bg-white p-8 md:p-10 rounded-3xl border border-rose-200 shadow-sm" data-aos="fade-up" data-aos-duration="1000">
-        <p class="font-poem italic text-2xl md:text-3xl leading-relaxed text-rose-700 tracking-wide font-semibold">
-          Bagt- söýgi bilen başlaýar,<br>
+      <h2 class="font-serif-custom text-2xl tracking-widest text-[#8c595f] uppercase mb-8">Toý çakylyk</h2>
+
+      <div class="my-6">
+        <h1 class="font-cursive text-6xl text-[#9c5f66] my-2">Kerim</h1>
+        <p class="font-cursive text-4xl text-[#c08088] my-1">&</p>
+        <h1 class="font-cursive text-6xl text-[#9c5f66] my-2">Jahan</h1>
+      </div>
+
+      <div class="mt-12 pt-6">
+        <p class="font-serif-custom text-lg tracking-wider text-[#a06d73] mb-2">Aşak geçiriň</p>
+        <div class="animate-bounce text-[#c08088] text-xl">
+          <i class="fas fa-chevron-down"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- GOŞGY WE SURAT SECTION -->
+    <section class="text-center space-y-8" data-aos="fade-up" data-aos-duration="1000">
+      
+      <!-- Goşgy -->
+      <div class="px-4">
+        <p class="font-serif-custom italic text-2xl md:text-3xl leading-relaxed text-[#8c595f] font-semibold">
+          Bagt – söýgi bilen başlaýar,<br>
           söýgi bilen dowam edýär,<br>
           diňe söýgi bilen hem baky bolýar.
         </p>
       </div>
 
-    </div>
-  </section>
-
-  <!-- Sene we Mekan -->
-  <section class="py-16 px-4 bg-stone-100 text-center">
-    <div class="max-w-2xl mx-auto space-y-8" data-aos="fade-up" data-aos-duration="1000">
-      <div>
-        <i class="fas fa-calendar-alt text-3xl text-rose-500 mb-2"></i>
-        <h3 class="text-xl font-semibold">Sene & Wagt</h3>
-        <p class="text-stone-600">Şenbe, 17-nji Oktýabr, 2026-njy ýyl</p>
-        <p class="text-stone-600">Sagat: 18:00</p>
+      <!-- Surat (Polaroid görnüşinde) -->
+      <div class="polaroid-frame mx-auto max-w-xs transform -rotate-1 hover:rotate-0 transition duration-500" data-aos="zoom-in">
+        <img src="IMG_1990.jpeg" alt="Kerim & Jahan" class="w-full h-80 object-cover rounded-sm">
       </div>
 
-      <div>
-        <i class="fas fa-map-marker-alt text-3xl text-rose-500 mb-2"></i>
-        <h3 class="text-xl font-semibold">Mekan</h3>
-        <p class="text-stone-600">“Bahar” restorany</p>
-        <p class="text-stone-600">Türkmenabat şäheri</p>
+    </section>
+
+    <!-- ÇAKYLYK WE SENE SECTION -->
+    <section class="text-center space-y-8 bg-white/70 backdrop-blur-sm p-8 rounded-3xl border border-[#f1dcd3] shadow-sm" data-aos="fade-up">
+      
+      <p class="font-serif-custom text-2xl leading-relaxed text-[#8c595f]">
+        Biz Sizi iň bagtly günümiziň gadyrly myhmany bolmagyňyza çagyrýarys!
+      </p>
+
+      <!-- Kalendar Bölümi -->
+      <div class="pt-4">
+        <h3 class="font-cursive text-4xl text-[#a06d73] mb-6">Oktýabr 2026</h3>
+        
+        <!-- Hepde günleri / Seneler -->
+        <div class="flex justify-center items-center gap-3 text-lg font-serif-custom text-[#8c595f]">
+          <span class="opacity-40">15</span>
+          <span class="opacity-60">16</span>
+          
+          <!-- Toý Sene Badjy -->
+          <div class="relative w-12 h-12 flex items-center justify-center font-bold text-white bg-[#c08088] rounded-full shadow-md text-xl">
+            17
+          </div>
+
+          <span class="opacity-60">18</span>
+          <span class="opacity-40">19</span>
+        </div>
+
+        <p class="font-serif-custom text-2xl text-[#a06d73] mt-6 tracking-widest">18:00</p>
       </div>
-    </div>
-  </section>
 
-  <!-- Footer -->
-  <footer class="py-6 text-center text-xs text-stone-400 border-t bg-white">
-    <p>Kerim & Jahan © 2026 | Toý Çakylygy</p>
-  </footer>
+    </section>
 
-  <!-- AOS Animasiýa JS Kitaphanasy -->
+    <!-- MEKAN BÖLÜMI -->
+    <section class="text-center space-y-4 bg-white/70 backdrop-blur-sm p-8 rounded-3xl border border-[#f1dcd3] shadow-sm" data-aos="fade-up">
+      <i class="fas fa-map-marker-alt text-2xl text-[#c08088] mb-1"></i>
+      <h3 class="font-serif-custom text-2xl text-[#8c595f] font-semibold">Mekan</h3>
+      <p class="font-sans text-stone-600">“Bahar” restorany</p>
+      <p class="font-sans text-stone-500 text-sm">Türkmenabat şäheri</p>
+    </section>
+
+    <!-- FOOTER (MADE WITH LOVE BY) -->
+    <footer class="text-center pt-8 pb-12 space-y-4 border-t border-[#ebd1d4]" data-aos="fade-up">
+      <p class="font-serif-custom text-xl text-[#8c595f]">Hormatlamak bilen,<br>Kerim & Jahan maşgalasy</p>
+      
+      <div class="pt-6 space-y-2">
+        <div class="text-[#c08088] text-lg"><i class="far fa-heart"></i></div>
+        <p class="font-serif-custom text-lg text-[#725255]">Made with love by</p>
+        <a href="https://instagram.com/u.m_1213" target="_blank" class="block font-serif-custom italic text-xl text-[#9c5f66] hover:underline">
+          @u.m_1213
+        </a>
+        <a href="tel:+99363371213" class="block font-sans text-sm tracking-wider text-[#8c595f] pt-1">
+          +993 63 371213
+        </a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- AOS Animasiýa JS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  
   <script>
-    AOS.init({
-      once: true,
-      duration: 800
-    });
-
-    const weddingDate = new Date("October 17, 2026 18:00:00").getTime();
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const difference = weddingDate - now;
-
-      if (difference > 0) {
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-        document.getElementById("days").innerText = days < 10 ? "0" + days : days;
-        document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-        document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-        document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
-      } else {
-        document.getElementById("countdown").innerHTML = "<p class='text-2xl text-rose-600 font-bold col-span-4'>Toý güni geldi!</p>";
-      }
-    }
-
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+    AOS.init({ once: true, duration: 800 });
 
     const musicBtn = document.getElementById("music-btn");
     const audio = document.getElementById("wedding-audio");
