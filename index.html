@@ -5,10 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kerim & Jahan - Toý Çakylygy</title>
   
-  <!-- Tailwind CSS & FontAwesome İkonkalar -->
+  <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
+  <!-- AOS Animasiýa Kitaphanasy -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,49 +29,43 @@
       background-attachment: fixed;
     }
 
-    /* Gülli we ykjam ramka dizaýny */
+    /* Gülli ramka dizaýny */
     .flower-frame {
       position: relative;
       background: #ffffff;
-      padding: 8px;
-      border-radius: 1.25rem;
+      padding: 12px;
+      border-radius: 1.5rem;
       border: 2px solid #fbcfe8;
-      box-shadow: 0 4px 15px rgba(244, 63, 94, 0.1);
-      transition: all 0.3s ease;
-    }
-
-    .flower-frame:hover {
-      transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 10px 25px rgba(244, 63, 94, 0.2);
+      box-shadow: 0 10px 30px rgba(244, 63, 94, 0.15);
     }
 
     .flower-frame img {
-      border-radius: 0.9rem;
+      border-radius: 1.2rem;
       object-fit: cover;
       width: 100%;
-      height: 220px;
+      max-height: 550px;
       background-color: #fce7f3;
     }
 
     .flower-corner {
       position: absolute;
-      font-size: 0.85rem;
+      font-size: 1.1rem;
       color: #f43f5e;
       z-index: 10;
       background: white;
       border-radius: 50%;
-      width: 22px;
-      height: 22px;
+      width: 32px;
+      height: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.12);
     }
-    .corner-tl { top: -6px; left: -6px; }
-    .corner-br { bottom: -6px; right: -6px; }
+    .corner-tl { top: -10px; left: -10px; }
+    .corner-br { bottom: -10px; right: -10px; }
   </style>
 </head>
-<body class="bg-stone-50 font-sans text-stone-800 antialiased">
+<body class="bg-stone-50 font-sans text-stone-800 antialiased overflow-x-hidden">
 
   <!-- Aýdym-saz Oýnadjy -->
   <div class="fixed top-4 right-4 z-50">
@@ -80,12 +77,11 @@
     </audio>
   </div>
 
-  <!-- Main Hero Section -->
+  <!-- Main Hero Section ("Biz öýlenýäris!" aýryldy) -->
   <section class="h-screen bg-wedding flex flex-col items-center justify-center text-center text-white px-4 relative">
-    <div class="animate-fade-in">
-      <p class="text-xl md:text-2xl tracking-widest uppercase mb-2 font-light">Biz öýlenýäris!</p>
-      <h1 class="font-cursive text-6xl md:text-8xl my-4 text-rose-200">Kerim & Jahan</h1>
-      <p class="text-lg md:text-xl font-light tracking-wide">17.10.2026 | Türkmenabat şäheri</p>
+    <div data-aos="zoom-in" data-aos-duration="1200">
+      <h1 class="font-cursive text-7xl md:text-9xl my-4 text-rose-200 drop-shadow-lg">Kerim & Jahan</h1>
+      <p class="text-xl md:text-2xl font-light tracking-widest uppercase">17.10.2026 | Türkmenabat şäheri</p>
     </div>
     
     <div class="absolute bottom-10 animate-bounce">
@@ -95,23 +91,23 @@
 
   <!-- Countdown (Toý gününe çenli wagt) -->
   <section id="details" class="py-16 px-4 bg-white text-center">
-    <div class="max-w-3xl mx-auto">
+    <div class="max-w-3xl mx-auto" data-aos="fade-up" data-aos-duration="1000">
       <h2 class="font-cursive text-4xl md:text-5xl text-rose-600 mb-6">Toý gününe çenli:</h2>
       
       <div id="countdown" class="grid grid-cols-4 gap-4 max-w-lg mx-auto text-stone-700">
-        <div class="p-4 bg-rose-50 rounded-xl shadow-sm">
+        <div class="p-4 bg-rose-50 rounded-xl shadow-sm" data-aos="flip-left" data-aos-delay="100">
           <span id="days" class="block text-3xl font-bold text-rose-600">00</span>
           <span class="text-xs uppercase font-medium">Gün</span>
         </div>
-        <div class="p-4 bg-rose-50 rounded-xl shadow-sm">
+        <div class="p-4 bg-rose-50 rounded-xl shadow-sm" data-aos="flip-left" data-aos-delay="200">
           <span id="hours" class="block text-3xl font-bold text-rose-600">00</span>
           <span class="text-xs uppercase font-medium">Sagt</span>
         </div>
-        <div class="p-4 bg-rose-50 rounded-xl shadow-sm">
+        <div class="p-4 bg-rose-50 rounded-xl shadow-sm" data-aos="flip-left" data-aos-delay="300">
           <span id="minutes" class="block text-3xl font-bold text-rose-600">00</span>
           <span class="text-xs uppercase font-medium">Minut</span>
         </div>
-        <div class="p-4 bg-rose-50 rounded-xl shadow-sm">
+        <div class="p-4 bg-rose-50 rounded-xl shadow-sm" data-aos="flip-left" data-aos-delay="400">
           <span id="seconds" class="block text-3xl font-bold text-rose-600">00</span>
           <span class="text-xs uppercase font-medium">Sekunt</span>
         </div>
@@ -119,68 +115,33 @@
     </div>
   </section>
 
-  <!-- SURAT GALEREÝASY -->
+  <!-- ÝENI SURAT BÖLÜMI (Diňe 1 Surat we aşagynda goşgy) -->
   <section class="py-16 px-4 bg-rose-50/40 text-center">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="font-cursive text-5xl text-rose-600 mb-2">Biziň Suratlarımız</h2>
-      <p class="text-stone-500 text-xs mb-10 uppercase tracking-widest">Bagtly pursatlar</p>
-
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-        
-        <div class="flower-frame">
-          <div class="flower-corner corner-tl"><i class="fas fa-leaf"></i></div>
-          <div class="flower-corner corner-br"><i class="fas fa-heart"></i></div>
-          <img src="./IMG_1965.jpeg" alt="Kerim & Jahan">
-        </div>
-
-        <div class="flower-frame">
-          <div class="flower-corner corner-tl"><i class="fas fa-leaf"></i></div>
-          <div class="flower-corner corner-br"><i class="fas fa-heart"></i></div>
-          <img src="./IMG_1968.jpeg" alt="Kerim & Jahan">
-        </div>
-
-        <div class="flower-frame">
-          <div class="flower-corner corner-tl"><i class="fas fa-leaf"></i></div>
-          <div class="flower-corner corner-br"><i class="fas fa-heart"></i></div>
-          <img src="./IMG_1969.jpeg" alt="Kerim & Jahan">
-        </div>
-
-        <div class="flower-frame">
-          <div class="flower-corner corner-tl"><i class="fas fa-leaf"></i></div>
-          <div class="flower-corner corner-br"><i class="fas fa-heart"></i></div>
-          <img src="./IMG_1972.jpeg" alt="Kerim & Jahan">
-        </div>
-
-        <div class="flower-frame">
-          <div class="flower-corner corner-tl"><i class="fas fa-leaf"></i></div>
-          <div class="flower-corner corner-br"><i class="fas fa-heart"></i></div>
-          <img src="./IMG_1991.jpeg" alt="Kerim & Jahan">
-        </div>
-
-        <div class="flower-frame">
-          <div class="flower-corner corner-tl"><i class="fas fa-leaf"></i></div>
-          <div class="flower-corner corner-br"><i class="fas fa-heart"></i></div>
-          <img src="./IMG_1992.jpeg" alt="Kerim & Jahan">
-        </div>
-
+    <div class="max-w-xl mx-auto">
+      
+      <!-- Surat -->
+      <div class="flower-frame mb-12" data-aos="zoom-in-up" data-aos-duration="1000">
+        <div class="flower-corner corner-tl"><i class="fas fa-leaf"></i></div>
+        <div class="flower-corner corner-br"><i class="fas fa-heart"></i></div>
+        <!-- Suradyň ady GitHub-da nähili bolsa şony ýazyň -->
+        <img src="./IMG_1993.jpeg" alt="Kerim & Jahan" class="w-full h-auto">
       </div>
-    </div>
-  </section>
 
-  <!-- Goşgy Bölümi -->
-  <section class="py-16 px-6 bg-white text-center">
-    <div class="max-w-2xl mx-auto bg-rose-50/60 p-8 md:p-12 rounded-3xl border border-rose-200 shadow-sm">
-      <p class="font-poem italic text-2xl md:text-3xl leading-relaxed text-rose-700 tracking-wide font-semibold">
-        Bagt- söýgi bilen başlaýar,<br>
-        söýgi bilen dowam edýär,<br>
-        diňe söýgi bilen hem baky bolýar.
-      </p>
+      <!-- Goşgy Bölümi -->
+      <div class="bg-white p-8 md:p-10 rounded-3xl border border-rose-200 shadow-sm" data-aos="fade-up" data-aos-duration="1000">
+        <p class="font-poem italic text-2xl md:text-3xl leading-relaxed text-rose-700 tracking-wide font-semibold">
+          Bagt- söýgi bilen başlaýar,<br>
+          söýgi bilen dowam edýär,<br>
+          diňe söýgi bilen hem baky bolýar.
+        </p>
+      </div>
+
     </div>
   </section>
 
   <!-- Sene we Mekan -->
   <section class="py-16 px-4 bg-stone-100 text-center">
-    <div class="max-w-2xl mx-auto space-y-8">
+    <div class="max-w-2xl mx-auto space-y-8" data-aos="fade-up" data-aos-duration="1000">
       <div>
         <i class="fas fa-calendar-alt text-3xl text-rose-500 mb-2"></i>
         <h3 class="text-xl font-semibold">Sene & Wagt</h3>
@@ -199,7 +160,7 @@
 
   <!-- RSVP Form -->
   <section class="py-16 px-4 bg-white text-center">
-    <div class="max-w-md mx-auto">
+    <div class="max-w-md mx-auto" data-aos="fade-up" data-aos-duration="1000">
       <h2 class="font-cursive text-4xl text-rose-600 mb-4">Gatnaşjakdygyňyzy tassyklaň</h2>
       <p class="text-sm text-stone-500 mb-6">Haýyş edýäris, toýa gatnaşyp biljekdigiňiz barada öňünden habar beriň!</p>
 
@@ -234,8 +195,16 @@
     <p>Kerim & Jahan © 2026 | Toý Çakylygy</p>
   </footer>
 
-  <!-- Saz we Timer JavaScript Kody -->
+  <!-- AOS Animasiýa JS Kitaphanasy -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
   <script>
+    // AOS Animasiýany Işletmek
+    AOS.init({
+      once: true,
+      duration: 800
+    });
+
     // 1. Countdown Timer Logic
     const weddingDate = new Date("October 17, 2026 18:00:00").getTime();
 
