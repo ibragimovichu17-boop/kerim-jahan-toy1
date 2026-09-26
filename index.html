@@ -176,9 +176,9 @@
       <i id="music-icon" class="fas fa-music text-lg"></i>
     </button>
 
-    <!-- ROMANTIK AÝDYM FAÝLY -->
-    <audio id="wedding-audio" loop preload="auto">
-      <source src="romantic-song.mp3" type="audio/mpeg">
+    <!-- INTERNETDEN GÖNI ZYNJYRLY ROMANTIK WE SÜÝJI TOÝ SAZY (GÖNI IŞLEÝÄR) -->
+    <audio id="wedding-audio" loop preload="auto" crossorigin="anonymous">
+      <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-wedding-violin-112423.mp3" type="audio/mpeg">
     </audio>
   </div>
 
@@ -330,18 +330,22 @@
 
     let isOpened = false;
 
-    // KONWERTE BASYLANDA AÝDYMY BAŞYNDAN TÄZEDEN BAŞLATMAK
+    // AÝDYMY SÜÝJILIK BILEN OÝNATMAK FUNKSIÝASY
+    function startMusic() {
+      audio.play().then(() => {
+        musicIcon.classList.remove("fa-music");
+        musicIcon.classList.add("fa-pause");
+      }).catch(e => {
+        console.log("Audio play error:", e);
+      });
+    }
+
+    // KONWERTE BASYLANDA AÝDYMY BAŞLATMAK WE SAHYPANY AÇMAK
     overlay.addEventListener('click', () => {
       if (isOpened) return;
       isOpened = true;
 
-      if (audio.paused) {
-        audio.play().then(() => {
-          musicIcon.classList.remove("fa-music");
-          musicIcon.classList.add("fa-pause");
-        }).catch(e => console.log("Audio play error", e));
-      }
-
+      startMusic();
       overlay.classList.add('opened');
 
       setTimeout(() => {
@@ -349,14 +353,12 @@
       }, 600);
     });
 
-    // SAKLAMAK / PLAY DÜWMESI
+    // SAZ DÜWMESI (PLAY / PAUSE)
     musicBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       if (audio.paused) {
         isOpened = true;
-        audio.play();
-        musicIcon.classList.remove("fa-music");
-        musicIcon.classList.add("fa-pause");
+        startMusic();
       } else {
         audio.pause();
         musicIcon.classList.remove("fa-pause");
